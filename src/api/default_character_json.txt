@@ -1,0 +1,226 @@
+﻿{
+        "general": {
+            "name": "__NAME__",
+            "caste": "mortal",
+            "concept": "",
+            "anima": "",
+            "supernalAbility": "none"
+        },
+
+        "attributes": {
+            "strength": 0,
+            "dexterity": 0,
+            "stamina": 0,
+            "charisma": 0,
+            "manipulation": 0,
+            "appearance": 0,
+            "perception": 0,
+            "intelligence": 0,
+            "wits": 0
+        },
+
+        "abilities": [
+            {
+                    "name": "archery",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "athletics",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "awareness",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "brawl",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "bureaucracy",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "craft",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "dodge",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "integrity",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "investigation",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "larceny",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "linguistics",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "lore",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "martialArts",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "medecine",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "melee",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "occult",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "performance",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "presence",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "resistance",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "ride",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "sail",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "socialize",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "stealth",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "survival",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "thrown",
+                    "value": 0,
+                    "favorite": false
+            },
+            {
+                    "name": "war",
+                    "value": 0,
+                    "favorite": false
+            }
+        ],
+
+        "additionalAbilities": [
+        ],
+
+        "specializations": [
+        ],
+
+        "merits": [
+        ],
+
+        "willpower": {
+            "current": 0,
+            "max": 0
+        },
+
+        "limitBreak":
+        {
+            "current": 0,
+            "max": 0
+        },
+
+        "essence":
+        {
+            "essenceLevel": 0,
+            "motes": {
+                    "personal":
+                    {
+                        "current": 0,
+                        "max": 0
+                    },
+                    "peripherical":
+                    {
+                        "current": 0,
+                        "max": 0
+                    },
+
+                    "commited": 0
+            }
+        },
+
+        "limitTrigger": [
+        ],
+
+        "weapons": [
+        ],
+
+        "armors": [
+        ],
+
+        "health": {
+			"incapacitated" : false,
+			"healthPoints" : []
+		
+		},
+
+        "intimacies": [
+        ],
+
+        "charms": [
+        ],
+
+        "inventory": [
+        ],
+
+        "notes": "",
+
+		"more": {
+			"lore" : null
+		},
+
+		"tracker": [
+		],
+}

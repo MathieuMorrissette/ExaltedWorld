@@ -1,0 +1,77 @@
+<div class="card shadow">
+	<!--<img class="card-img-top" src="" alt="UserBanner"> -->
+	<h4 class="card-header" id="username">__Username__</h4>
+	<div class="card-body">
+		<p class="card-text">It's over 9000!</p>
+		<div class="row">
+			<a href="/home" class="btn btn-primary col-5">Home</a>
+			<a href="/user/logout" class="btn btn-primary float-right offset-2 col-5">Logout</a>
+		</div>
+	</div>
+</div>
+
+<div class="card shadow" style="margin-top: 20px;">
+	<h4 class="card-header">Characters</h4>
+	<div class="list-group" id="characterContainer">
+	</div>
+	<div class="card-body">
+		<a href="/characters" class="btn btn-primary float-right">Manage</a>
+	</div>
+</div>
+
+
+<script>
+
+	function refreshmenu() {
+
+		getUserInfos(result => {
+			document.getElementById("username").innerHTML = result.name
+		});
+
+
+		getUserCharacters(result => {
+			var characterTemplate = `<a href="#" onclick="viewCharacterSheet('__CHARACTER_ID__')" class="list-group-item list-group-item-action">__CHARACTERNAME__ - __CHARACTER_STATUS__</a>`
+
+			var characterContainer = document.getElementById("characterContainer");
+
+			characterContainer.innerHTML = "";
+
+			result.forEach(character => {
+				var characterhtml = characterTemplate.split("__CHARACTERNAME__").join(character["data"]["general"]["name"])
+				characterhtml = characterhtml.split("__CHARACTER_ID__").join(character.id)
+
+
+				if(character["data"]["essence"] != null && character["data"]["essence"]["essenceLevel"] != null)
+				{
+					characterhtml = characterhtml.split("__CHARACTER_STATUS__").join("Level : " + character["data"]["essence"]["essenceLevel"])
+				}
+				else
+				{
+					characterhtml = characterhtml.split("__CHARACTER_STATUS__").join("Deceased") // lol
+				}
+
+
+				characterContainer.innerHTML = characterContainer.innerHTML + characterhtml;
+
+
+			});
+
+		});
+	}
+
+	refreshmenu();
+
+</script>
+
+<!--<div class="card" style="margin-top: 20px;">
+				<div class="card-body">
+					<h4 class="card-title">Games</h4>
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">The scavenger lords</li>
+					<li class="list-group-item">The plebs of the desert - Done</li>
+				</ul>
+				<div class="card-body">				
+					<a href="../characters" class="btn btn-primary float-right">Manage</a>
+				</div>				
+			</div>-->

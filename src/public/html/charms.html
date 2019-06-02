@@ -1,0 +1,115 @@
+<div class="card mb-3">
+      <h4 class="card-header">Filter</h4>
+      <div class="card-body">            
+            <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Search (not implemented)">
+                  <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button">Search</button>
+                  </div>
+            </div>
+            <div class="row">
+                  <div class="col-sm-6">
+                  <div class="form-group">
+                  <label for="exampleFormControlSelect1">Tree - Not implemented</label>
+                  <select class="form-control" id="exampleFormControlSelect1">
+                        <option>Archery</option>
+                        <option>Athletics</option>
+                        <option>Awareness</option>
+                        <option>Brawl</option>
+                        <option>Stealth</option>
+                        <option>Martial Arts</option>
+                        <option>Thrown</option>
+                  </select>
+                  </div>
+                  </div>
+                  <div class="col-sm-6">
+                        <label>Keywords</label>
+                        <input type="text" class="form-control" placeholder="">
+                  </div>
+            </div>
+      </div>
+</div>
+
+
+
+<div class="card">
+      <h4 class="card-header">Charms <span id="count">- Loading</span></h4>
+      <div class="card-body"  id="charmsContainer">            
+            
+      </div>
+</div>
+
+
+
+
+<script>
+
+
+var charmTemplate = `
+<div class="row border rounded shadow p-2 mt-3">
+      <div class="col-12">
+            <div class="row">
+                  <div class="col-6">
+                        <div class="row" style="font-size:1.2em;">
+                              <b>Name :</b>&nbsp;__NAME__
+                        </div>
+                        <hr>
+                        <div class="row">
+                              <b>Costs :</b>&nbsp;__COSTS__
+                        </div>
+                        <div class="row">
+                              <b>Type :</b>&nbsp;__TYPE__
+                        </div>
+                        <div class="row">
+                              <b>Keywords :</b>&nbsp;__KEY__
+                        </div>
+                  </div>
+                  <div class="col-6">
+                        <div class="row">
+                              <b>Tree :</b>&nbsp;__TREE__
+                        </div>
+                        <div class="row">
+                              <b>Requirements :</b>&nbsp;__REQS__
+                        </div>
+                        <div class="row">
+                              <b>PrerequisiteCharms :</b>&nbsp;__PRE__
+                        </div>
+                        <div class="row">
+                              <b>Duration :</b>&nbsp;__DUR__
+                        </div>
+                  </div>
+            </div>
+            <div class="row">
+                  <b>Description</b><br>
+                  <p> __DETAILS__</p>
+            </div>
+      </div>
+</div>
+`;
+
+sendHttpGetRequest("/json/charms.json", (data) => { 
+      
+      charms = JSON.parse(data);
+      console.log(charms["charms"][0])
+      charmContainer = $("#charmsContainer");
+
+      charms["charms"].forEach(element => {
+            
+            var tmp = charmTemplate.split("__NAME__").join(element["name"]);
+
+            tmp = tmp.split("__DETAILS__").join(element["details"].join("\n"));
+            tmp = tmp.split("__COSTS__").join(element["costs"].join(", "));
+            tmp = tmp.split("__TREE__").join(element["tree"]);
+            tmp = tmp.split("__REQS__").join(element["minimums"].join(", "));
+            tmp = tmp.split("__PRE__").join(element["prerequisiteCharms"].join(", "));
+            tmp = tmp.split("__TYPE__").join(element["type"]);
+            tmp = tmp.split("__DUR__").join(element["duration"]);            
+            tmp = tmp.split("__KEY__").join(element["keywords"].join(", "));
+
+            charmContainer.append(tmp);
+
+      });
+
+      document.getElementById("count").innerHTML = "- Loaded " + charms["charms"].length + " charms";
+});
+</script>

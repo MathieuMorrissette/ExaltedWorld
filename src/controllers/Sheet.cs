@@ -1,0 +1,52 @@
+﻿using HttpServer.websites.exalted.managers;
+using HttpServer.websites.exalted.model;
+using HttpServer.websites.exalted.templates;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HttpServer.websites.exalted.controllers
+{
+    class Sheet : IController
+    {
+        public bool HandleRequest(Client client, HttpListenerContext context, params string[] args)
+        {
+            if (!UserManager.Connected(client))
+            {
+                context.Redirect("../login");
+                return true;
+            }
+
+            User user = UserManager.GetUser(UserManager.GetUserID(client));
+
+            if (user == null)
+            {
+                context.Redirect("../login");
+                return true;
+            }
+
+            if (args.Length != 2 || args[1] != "sheet")
+            {
+                return false;
+            }
+
+            int characterid = Convert.ToInt32(args[0]);
+
+            Character character = CharacterManager.GetCharacter(characterid);
+
+            if (character.UserId != user.Id)
+            {
+                return false;
+            }
+
+            Sheet_Template template = new Sheet_Template(user);
+            context.Send(template.Render());
+
+            return true;
+        }
+    }
+}

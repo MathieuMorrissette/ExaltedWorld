@@ -1,0 +1,3489 @@
+<script src="/javascript/network-helper.js"> </script>
+<script src="/javascript/character-helper.js"> </script>
+
+<div class="">
+
+      <div class="card shadow mb-2">
+            <div class="card-body">
+                  <ul class="nav nav-pills" id="myTab" role="tablist">
+                        <li class="nav-item">
+                              <a class="nav-link active" data-toggle="tab" href="#sheet" role="tab">Sheet</a>
+                        </li>
+                        <li class="nav-item">
+                              <a class="nav-link" data-toggle="tab" href="#tab-charms" role="tab">Charms</a>
+                        </li>
+                        <li class="nav-item">
+                              <a class="nav-link" data-toggle="tab" href="#tab-weparm" role="tab">Weapons & Armors</a>
+                        </li>
+                        <li class="nav-item">
+                              <a class="nav-link" data-toggle="tab" href="#tab-intimacies" role="tab">Intimacies</a>
+                        </li>
+                        <li class="nav-item">
+                              <a class="nav-link" data-toggle="tab" href="#tab-tracker" role="tab">Tracker</a>
+                        </li>
+                        <li class="nav-item">
+                              <a class="nav-link" data-toggle="tab" href="#tab-inventory" role="tab">Inventory</a>
+                        </li>
+                        <li class="nav-item">
+                              <a class="nav-link" data-toggle="tab" href="#tab-notes" role="tab">Notes</a>
+                        </li>
+                        <li class="nav-item">
+                              <a class="nav-link" data-toggle="tab" href="#tab-more" role="tab">More</a>
+                        </li>
+                        <li class="nav-item">
+                              <a class="nav-link" data-toggle="tab" href="#tab-quick" role="tab">Quick View</a>
+                        </li>
+                  </ul>
+            </div>
+      </div>
+
+      <div class="tab-content" id="myTabContent">
+
+            <div class="tab-pane fade" id="tab-tracker" role="tabpanel">
+                  <div class="row mb-3">
+                        <div class="col-sm-6">
+                              <div class="card shadow mt-3">
+                                    <h4 class="card-header">Experience</h4>
+                                    <div class="card-body">
+                                          <div class="row">
+                                                <div class="col-sm-6">
+                                                      <label>Current</label>
+                                                      <input readonly type="number" id="currentExperience" class="form-control" value="0">
+                                                </div>
+                                                <div class="col-sm-6">
+                                                      <label>Total</label>
+                                                      <input readonly type="number" id="totalExperience" class="form-control" value="0">
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                              <div class="card shadow mt-3">
+                                    <h4 class="card-header">Solar Experience</h4>
+                                    <div class="card-body">
+                                          <div class=" row">
+                                                <div class="col-sm-6">
+                                                      <label>Current</label>
+                                                      <input readonly type="number" id="currentSpecial" class="form-control" value="0">
+                                                </div>
+                                                <div class="col-sm-6">
+                                                      <label>Total</label>
+                                                      <input readonly type="number" id="totalSpecial" class="form-control" value="0">
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+
+
+                  <div class="row">
+                        <div class="col-sm-12">
+                              <div class="card shadow">
+                                    <h4 class="card-header">Character Tracker</h4>
+                                    <div class="card-body">
+
+                                          <button type="button" class="btn btn-primary float-right" onclick="addRow(trackerTemplate, 'tracker', 'track', true); setControlStates();">Add</button><br>
+                                          <hr />
+
+                                          <form id="tracker">
+
+                                          </form>
+
+
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+
+
+            <div class="tab-pane fade" id="tab-quick" role="tabpanel">
+                  <div class="row">
+                        <div class="col-12">
+                              <div class="card shadow">
+                                    <h4 class="card-header">Quick View</h4>
+                                    <div class="card-body">
+                                          <div class="row border p-2" id="incapacitatedLabel" hidden>
+                                                <div class=" col-12 text-center">
+                                                      <span style="color: red;">
+                                                            <h3><b>INCAPACITATED</b></h3>
+                                                      </span>
+                                                </div>
+                                          </div>
+                                          <div class="row">
+                                                <div class="col-3">
+                                                      <div class="form-group">
+                                                            <label for="currentWeapon">Current Weapon </label>
+                                                            <select class="form-control" id="currentWeapon" name="currentWeapon" onchange="calculateStats()">
+
+                                                            </select>
+                                                      </div>
+                                                </div>
+                                                <div class="col-3">
+                                                      <div class="form-group" id="currentRangeDiv" hidden>
+                                                            <label for="currentRange">Range :</label>
+                                                            <select class="form-control" id="currentRange" name="currentRange" onchange="calculateStats()">
+                                                                  <option>close</option>
+                                                                  <option>short</option>
+                                                                  <option>medium</option>
+                                                                  <option>long</option>
+                                                                  <option>extreme</option>
+                                                            </select>
+                                                      </div>
+                                                </div>
+                                                <div class="col-6">
+                                                      <div class="form-group">
+                                                            <label for="currentArmor">Current Armor </label>
+                                                            <select class="form-control" id="currentArmor" name="currentArmor" onchange="calculateStats()">
+
+                                                            </select>
+                                                      </div>
+                                                </div>
+
+                                          </div>
+
+                                          <div class="row border p-2">
+                                                <div class="col-4">
+                                                      <div class="row">
+                                                            <b>Health Dice Penalty :</b>
+                                                      </div>
+                                                      <div class="row">
+                                                            <div id="healthPenalty"></div>
+                                                      </div>
+                                                </div>
+                                                <div class="col-4">
+                                                      <div class="row">
+                                                            <b>Dice Penalty :</b>
+                                                      </div>
+                                                      <div class="row">
+                                                            <input type="text" class="form-control" id="globalDicePenalty" onchange="calculateStats()" value="0" data-toggle="tooltip" data-placement="bottom" title="Ex. Envonmental Factor or charm">
+                                                      </div>
+                                                </div>
+                                                <div class="col-4">
+                                                      <div class="row">
+                                                            <b>Dice Bonus :</b>
+                                                      </div>
+                                                      <div class="row">
+                                                            <input type="text" class="form-control" id="globalDiceBonus" onchange="calculateStats()" value="0" data-toggle="tooltip" data-placement="bottom" title="Bonus from stunt or excellency">
+                                                      </div>
+                                                </div>
+                                          </div>
+                                          <div class="row border p-2">
+                                                <div class="offset-8 col-4">
+                                                      <div class="row">
+                                                            <b>Initiative :</b>
+                                                      </div>
+                                                      <div class="row">
+                                                            <input type="text" class="form-control" id="initiative" onchange="calculateStats()" value="0" data-toggle="tooltip" data-placement="bottom" title="Your current ini">
+                                                      </div>
+                                                </div>
+                                          </div>
+
+
+                                          <div class="row">
+
+                                                <div class="col-6">
+                                                      <div class="row border p-2 mt-1">
+                                                            <b>Join Battle :</b> <span id="joinBattle"></span>
+                                                      </div>
+
+
+                                                      <div class="row border p-2 mt-1">
+                                                            <div class="col-12">
+                                                                  <div class="row">
+                                                                        <b>Withering Attack Roll :</b>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <div id="witheringAttackRoll"></div>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <div class="form-check form-check-inline">
+                                                                              <input class="form-check-input" type="checkbox" id="witheringAttackRollSpeciality" onchange="calculateStats()">
+                                                                              <label class="form-check-label" for="witheringAttackRollSpeciality"><i>Tick If Speciality
+                                                                                          Applies</i></label>
+                                                                        </div>
+                                                                  </div>
+
+                                                                  <div class="row">
+                                                                        <b>Withering Damage Roll :</b>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <span id="witheringDamageRoll"></span>
+                                                                  </div>
+                                                            </div>
+                                                      </div>
+
+                                                      <div class="row border p-2 mt-1">
+                                                            <div class="col-12">
+                                                                  <div class="row">
+                                                                        <b>Natural Soak :</b>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <span id="naturalSoakCalc"></span>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <b>Soak :</b>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <span id="soakCalc"></span>
+                                                                  </div>
+                                                            </div>
+                                                      </div>
+
+
+                                                      <div class="row border p-2 mt-1">
+                                                            <div class="col-12">
+                                                                  <div class="row">
+                                                                        <b>Parry : </b>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <span id="parryCalc"></span>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <b>Evasion : </b>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <span id="evasionCalc"></span>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <b>Defense : </b>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <span id="defenseCalc"></span>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <b>Onslaught Penalty:</b>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        Every time an opponent attacks a character, that
+                                                                        character suffers a cumulative -1 Defense penalty until his next turn.
+                                                                  </div>
+                                                            </div>
+                                                      </div>
+                                                </div>
+                                                <div class="col-6">
+                                                      <div class="row border p-2 mt-1">
+                                                            <div class="col-12">
+                                                                  <div class="row">
+                                                                        <b>Decisive Attack Roll :</b>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <span id="decisiveAttackRoll"></span>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <div class="form-check form-check-inline">
+                                                                              <input class="form-check-input" type="checkbox" id="decisiveAttackRollSpeciality" onchange="calculateStats()">
+                                                                              <label class="form-check-label" for="decisiveAttackRollSpeciality"><i>Tick If Speciality
+                                                                                          Applies</i></label>
+                                                                        </div>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <b>Decisive Damage Roll :</b>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <div id="iniCalc"></div>
+                                                                  </div>
+                                                            </div>
+                                                      </div>
+
+                                                      <div class="row border p-2 mt-1">
+                                                            <div class="col-12">
+                                                                  <div class="row">
+                                                                        <b>Hardness : </b>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <span id="hardnessCalc"></span>
+                                                                  </div>
+                                                            </div>
+                                                      </div>
+
+                                                      <div class="row border p-2 mt-1">
+                                                            <div class="col-12">
+                                                                  <div class="row">
+                                                                        <b>Rush : </b>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <span id="rushCalc"></span>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <b>Withdraw : </b>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <span id="withdrawCalc"></span>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <b>Disengage : </b>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <span id="disengageCalc"></span>
+                                                                  </div>
+                                                            </div>
+                                                      </div>
+
+
+                                                      <div class="row  border p-2 mt-1">
+                                                            <div class="col-12">
+                                                                  <div class="row">
+                                                                        <b>Resolve :</b>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <span id="resolve"></span>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <div class="form-check form-check-inline">
+                                                                              <input class="form-check-input" type="checkbox" id="resolveSpeciality" onchange="calculateStats()">
+                                                                              <label class="form-check-label" for="resolveSpeciality"><i>Tick If
+                                                                                          Speciality Applies</i></label>
+                                                                        </div>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <b>Guile :</b>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <span id="guile"></span>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                        <div class="form-check form-check-inline">
+                                                                              <input class="form-check-input" type="checkbox" id="guileSpeciality" onchange="calculateStats()">
+                                                                              <label class="form-check-label" for="guileSpeciality"><i>Tick If
+                                                                                          Speciality Applies</i></label>
+                                                                        </div>
+                                                                  </div>
+                                                            </div>
+                                                      </div>
+
+                                                </div>
+                                          </div>
+
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+
+                  <div class="row mt-2">
+                        <div class="col-12">
+                              <div class="card shadow">
+                                    <h4 class="card-header">Reminders</h4>
+                                    <div class="card-body">
+                                          • <b>Join Battle:</b> Wits + Awareness (plus 3 successes) <br><br>
+
+                                          • <b>Withering attack roll:</b> Dexterity + (Combat Ability) + weapon’s accuracy<br>
+                                          • <b>Withering damage roll:</b> weapon’s damage + (Strength or 4 for
+                                          firewand/crossbow) + threshold successes (successes on the attack roll - enemy’s
+                                          Defence) - Enemy Soak<br><br>
+
+                                          • <b>Decisive attack roll:</b> Dexterity + (Combat Ability)<br>
+                                          • <b>Decisive damage roll:</b> roll your current initiative in dice. If you have
+                                          less initiative than the enemy has hardness and the enemy is not crashed, damage is
+                                          always 0.<br><br>
+
+                                          • <b>Natural Soak:</b> (Stamina if Exalted) or (0 if Mortal)<br>
+                                          • <b>Soak:</b> Stamina + Charms + Armor Soak, defends against Withering
+                                          attacks<br><br>
+
+                                          • <b>Hardness:</b> Best hardness value from Charm or Armor, if higher than a
+                                          Decisive attack dice pool, the attack fails. <br><br>
+
+                                          • <b>Parry:</b> ([Dexterity + (Combat Ability)] / 2, round up) + weapon’s
+                                          defense<br>
+                                          • <b>Evasion:</b> ([Dexterity + Dodge)] / 2, round up) - armor’s mobility
+                                          penalty<br>
+                                          • <b>Defense:</b> Higher of Parry or Evasion<br>
+                                          • <b>Onslaught Penalty:</b> Every time an opponent attacks a character, that
+                                          character suffers a cumulative -1 Defense penalty until his next turn. <br><br>
+
+                                          • <b>Rush:</b> Dexterity + Athletics - armor’s mobility penalty<br>
+                                          • <b>Withdraw:</b> Dexterity + Athletics - armor’s mobility penalty<br>
+                                          • <b>Disengage:</b> Dexterity + Dodge - armor’s mobility penalty<br><br>
+
+                                          • <b>Resolve:</b> ([Wits + Integrity + (1 if specialty applies)] / 2, round up)<br>
+                                          • <b>Guile:</b> ([Manipulation + Socialize + (1 if specialty applies)] / 2, round
+                                          up)<br>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+
+            <div class="tab-pane fade" id="tab-weparm" role="tabpanel">
+                  <div class="row">
+                        <div class="col-sm-12">
+                              <div class="card shadow">
+                                    <h4 class="card-header">Weapons</h4>
+                                    <div class="card-body">
+                                          <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Search (not implemented)">
+                                                <div class="input-group-append">
+                                                      <button class="btn btn-outline-secondary" type="button">Search</button>
+                                                </div>
+                                          </div>
+                                          <form id="weapons">
+
+                                          </form>
+
+                                          <hr />
+                                          <button type="button" class="btn btn-primary float-right" onclick="addRow(weaponTemplate, 'weapons', 'weapon'); setControlStates(); updateWeaponsDisplay(); fixToolTips();">Add</button>
+
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+
+                  <div class="row">
+                        <div class="col-sm-12">
+                              <div class="card shadow mt-3">
+
+                                    <h4 class="card-header">Armors</h4>
+                                    <div class="card-body">
+                                          <form id="armors">
+
+                                          </form>
+                                          <hr />
+                                          <button type="button" class="btn btn-primary float-right" onclick="addRow(armorTemplate, 'armors', 'armor'); setControlStates(); fixToolTips();">Add</button>
+
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+
+
+            <div class="tab-pane fade" id="tab-notes" role="tabpanel">
+                  <div class="row">
+                        <div class="col-sm-12">
+                              <div class="card shadow">
+                                    <h4 class="card-header">Notes</h4>
+                                    <div class="card-body">
+                                          <form>
+                                                <textarea class="form-control" id="notes" rows="30" onchange="setControlStates()"></textarea>
+                                          </form>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+
+
+
+            <div class="tab-pane fade" id="tab-intimacies" role="tabpanel">
+                  <div class="row">
+                        <div class="col-sm-12">
+                              <div class="card shadow">
+                                    <h4 class="card-header">Intimacies</h4>
+                                    <div class="card-body">
+                                          <form id="intimacies">
+                                          </form>
+                                          <hr />
+                                          <button type="button" class="btn btn-primary float-right" onclick="addRow(intimacyTemplate, 'intimacies', 'intimacy'); setControlStates();">Add</button>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+
+
+            <div class="tab-pane fade" id="tab-inventory" role="tabpanel">
+                  <div class="row">
+                        <div class="col-sm-12">
+                              <div class="card shadow">
+                                    <h4 class="card-header">Inventory</h4>
+                                    <div class="card-body">
+                                          <form id="inventory">
+                                          </form>
+                                          <hr />
+                                          <button type="button" class="btn btn-primary float-right" onclick="addRow(inventoryTemplate, 'inventory', 'inventory'); setControlStates();">Add</button>
+
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+
+            <div class="tab-pane fade" id="tab-more" role="tabpanel">
+                  <div class="row">
+                        <div class="col-sm-12">
+                              <div class="card shadow">
+                                    <h4 class="card-header">Lore Background</h4>
+                                    <div class="card-body">
+                                          <form>
+                                                <textarea class="form-control" id="loreBackground" rows="30" onchange="setControlStates()"></textarea>
+                                          </form>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+
+
+            <div class="tab-pane fade" id="tab-charms" role="tabpanel">
+                  <div class="row">
+                        <div class="col-sm-12">
+                              <div class="card shadow">
+                                    <h4 class="card-header">Charms</h4>
+                                    <div class="card-body">
+                                          <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Search (not implemented)">
+                                                <div class="input-group-append">
+                                                      <button class="btn btn-outline-secondary" type="button">Search</button>
+                                                </div>
+                                          </div>
+                                          <form id="charms">
+                                          </form>
+                                          <hr />
+                                          <button type="button" class="btn btn-primary float-right" onclick="addRow(charmTemplate, 'charms', 'charm'); setControlStates();">Add</button>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+            <div class="tab-pane fade show active" id="sheet" role="tabpanel">
+                  <div class="row">
+                        <div class="col-12">
+                              <div class="card shadow">
+                                    <h4 class="card-header">General</h4>
+                                    <div class="card-body">
+                                          <form id="general">
+                                                <div class=" row">
+                                                      <div class="col-sm-6">
+                                                            <label>Name</label>
+                                                            <input type="text" name="name" class="form-control" onchange="setControlStates()">
+                                                      </div>
+
+                                                      <div class="col-sm-6">
+                                                            <label>Concept</label>
+                                                            <input type="text" name="concept" class="form-control" onchange="setControlStates()">
+                                                      </div>
+                                                </div>
+                                                <div class="row">
+                                                      <div class="col-sm-6">
+                                                            <label>Player</label>
+                                                            <input type="text" name="owner" class="form-control" disabled onchange="setControlStates()">
+                                                      </div>
+
+                                                      <div class="col-sm-6">
+                                                            <label>Anima</label>
+                                                            <input type="text" name="anima" class="form-control" onchange="setControlStates()">
+                                                      </div>
+                                                </div>
+                                                <div class="row">
+                                                      <div class="col-sm-6">
+                                                            <label>Caste</label>
+                                                            <select class="form-control" id="casteCombo" name="caste" onchange="setControlStates(); updateSupernals();">
+                                                            </select>
+                                                      </div>
+
+                                                      <div class="col-sm-6">
+                                                            <label>Supernal Ability</label>
+                                                            <select class="form-control" id="supernalCombo" name="supernalAbility" onchange="setControlStates();">
+                                                                  
+                                                            </select>
+                                                      </div>
+                                                </div>
+                                          </form>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+
+                  <div class="row">
+                        <div class="col-12">
+                              <div class="card shadow" style="margin-top: 20px;">
+                                    <h4 class="card-header">Attributes</h4>
+                                    <div class="card-body">
+                                          <form id="attributes">
+                                                <div class=" row">
+                                                      <div class="col-sm-4">
+                                                            <label>Strength</label>
+                                                            <input type="number" name="strength" class="form-control" onchange="setControlStates()">
+                                                      </div>
+
+                                                      <div class="col-sm-4">
+                                                            <label>Charisma</label>
+                                                            <input type="number" name="charisma" class="form-control" onchange="setControlStates()">
+                                                      </div>
+
+                                                      <div class="col-sm-4">
+                                                            <label>Perception</label>
+                                                            <input type="number" name="perception" class="form-control" onchange="setControlStates()">
+                                                      </div>
+                                                </div>
+
+                                                <div class=" row">
+                                                      <div class="col-sm-4">
+                                                            <label>Dexterity</label>
+                                                            <input type="number" name="dexterity" class="form-control" onchange="setControlStates()">
+                                                      </div>
+
+                                                      <div class="col-sm-4">
+                                                            <label>Manipulation</label>
+                                                            <input type="number" name="manipulation" class="form-control" onchange="setControlStates()">
+                                                      </div>
+
+                                                      <div class="col-sm-4">
+                                                            <label>Intelligence</label>
+                                                            <input type="number" name="intelligence" class="form-control" onchange="setControlStates()">
+                                                      </div>
+                                                </div>
+
+
+                                                <div class=" row">
+                                                      <div class="col-sm-4">
+                                                            <label>Stamina</label>
+                                                            <input type="number" name="stamina" class="form-control" onchange="setControlStates()">
+                                                      </div>
+
+                                                      <div class="col-sm-4">
+                                                            <label>Appearance</label>
+                                                            <input type="number" name="appearance" class="form-control" onchange="setControlStates()">
+                                                      </div>
+
+                                                      <div class="col-sm-4">
+                                                            <label>Wits</label>
+                                                            <input type="number" name="wits" class="form-control" onchange="setControlStates()">
+                                                      </div>
+                                                </div>
+                                          </form>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+
+                  <div class="row mt-3">
+                        <div class="col-lg-5 col-xl-4">
+                              <div class="row">
+                                    <div class="col-12">
+                                          <div class="card shadow">
+                                                <h4 class="card-header">Abilities</h4>
+                                                <div class="card-body">
+                                                      <form id="abilities" class="table-responsive">
+                                                            <table class="table">
+                                                                  <thead>
+                                                                        <tr>
+                                                                              <th scope="col">Fav</th>
+                                                                              <th scope="col">Name</th>
+                                                                              <th scope="col">Value</th>
+                                                                        </tr>
+                                                                  </thead>
+                                                                  <tbody id="abilitiesContainer">
+
+
+                                                                  </tbody>
+                                                            </table>
+                                                      </form>
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+                              <div class="row mt-3">
+                                    <div class="col-12">
+                                          <div class="card shadow">
+                                                <h4 class="card-header">Additionnal Abilities</h4>
+                                                <div class="card-body">
+                                                      <form id="additionalAbilities">
+                                                            <table class="table">
+                                                                  <thead>
+                                                                        <tr>
+                                                                              <th scope="col">Fav</th>
+                                                                              <th scope="col">Name</th>
+                                                                              <th scope="col">Value</th>
+                                                                        </tr>
+                                                                  </thead>
+                                                                  <tbody id="additionalAbilitiesContainer">
+
+
+                                                                  </tbody>
+                                                            </table>
+                                                      </form>
+                                                      <hr />
+                                                      <button type="button" class="btn btn-primary float-right" onclick="addRow(additionalTemplate, 'additionalAbilitiesContainer', 'additional'); setControlStates();">Add</button>
+
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+
+                        <div class="col-lg-7 col-xl-8">
+                              <div class="row">
+                                    <div class="col-sm-6">
+                                          <div class="card shadow">
+                                                <h4 class="card-header">Health</h4>
+                                                <div class="card-body">
+                                                      <form id="incapacitated">
+                                                            <label for="incapacitatedCheck">Incapacitated</label><br>
+                                                            <input id="incapacitatedCheck" name="incapacitated" type="checkbox" onchange="setControlStates()">
+                                                      </form>
+                                                      <hr>
+                                                      <form id="health">
+
+                                                      </form>
+                                                      <hr />
+                                                      <button type="button" class="btn btn-primary float-right" onclick="addRow(healthTemplate, 'health', 'health'); setControlStates();">Add</button>
+                                                </div>
+                                          </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                          <div class="row mb-3">
+                                                <div class="col-12">
+                                                      <div class="card shadow">
+                                                            <h4 class="card-header">Specializations</h4>
+                                                            <div class="card-body">
+                                                                  <form id="specializations">
+                                                                  </form>
+                                                                  <hr />
+                                                                  <button type="button" class="btn btn-primary float-right" onclick="addRow(specializationTemplate, 'specializations', 'specialization'); setControlStates();">Add</button>
+
+                                                            </div>
+                                                      </div>
+                                                </div>
+                                          </div>
+
+                                          <div class="row mb-3">
+                                                <div class="col-12">
+                                                      <div class="card shadow">
+                                                            <h4 class="card-header">Merits</h4>
+                                                            <div class="card-body">
+                                                                  <form id="merits">
+                                                                  </form>
+                                                                  <hr />
+                                                                  <button type="button" class="btn btn-primary float-right" onclick="addRow(meritTemplate, 'merits', 'merit'); setControlStates();">Add</button>
+                                                            </div>
+                                                      </div>
+                                                </div>
+                                          </div>
+
+                                          <div class="row mb-3">
+                                                <div class="col-12">
+                                                      <div class="card shadow">
+                                                            <h4 class="card-header">Willpower</h4>
+                                                            <div class="card-body">            
+                                                                  <form id="willpower">
+                                                                        <div class="form-row">
+                                                                              <div class="col-6">
+                                                                                    <label>Current</label>
+                                                                                    <input type="text" class="form-control" name="current" placeholder="current" onchange="setControlStates()">
+                                                                              </div>
+                                                                              <div class="col-6">
+                                                                                    <label>Total</label>
+                                                                                    <input type="text" class="form-control" name="max" placeholder="max" onchange="setControlStates()">
+                                                                              </div>
+                                                                        </div>
+                                                                  </form>
+                                                            </div>
+                                                      </div>
+                                                </div>
+                                          </div>
+
+
+                                          <div class="row mb-3">
+                                                <div class="col-12">
+                                                      <div class="card shadow">
+                                                            <h4 class="card-header">Limit Break</h4>
+                                                            <div class="card-body">
+                                                                  <form id="limitBreak">
+                                                                        <div class="form-row">
+                                                                              <div class="col-6">
+                                                                                    <label>Current</label>
+                                                                                    <input type="text" class="form-control" name="current" placeholder="current" onchange="setControlStates()">
+                                                                              </div>
+                                                                              <div class="col-6">
+                                                                                    <label>Total</label>
+                                                                                    <input type="text" class="form-control" name="max" placeholder="max" onchange="setControlStates()">
+                                                                              </div>
+                                                                        </div>
+                                                                  </form>
+                                                            </div>
+                                                      </div>
+                                                </div>
+                                          </div>
+
+                                          <div class="row mb-3">
+                                                <div class="col-12">
+                                                      <div class="card shadow">
+                                                            <h4 class="card-header">Limit Trigger</h4>
+                                                            <div class="card-body">
+                                                                  <form id="limitTrigger">
+                                                                  </form>
+                                                                  <hr />
+                                                                  <button type="button" class="btn btn-primary float-right" onclick="addRow(limitTriggerTemplate, 'limitTrigger', 'limitTrigger'); setControlStates();">Add</button>
+                                                            </div>
+                                                      </div>
+                                                </div>
+                                          </div>
+
+                                          <div class="row">
+                                                <div class="col-12">
+                                                      <div class="card shadow">
+                                                            <h4 class="card-header">Essence</h4>
+                                                            <div class="card-body">
+                                                                  <form id="essence">
+                                                                        <div class=" row">
+                                                                              <div class="input-group col-sm-12">
+                                                                                    <div class="input-group-prepend">
+                                                                                          <span class="input-group-text">Essence
+                                                                                                Level</span>
+                                                                                    </div>
+                                                                                    <input type="text" name="essenceLevel" class="form-control text-right" onchange="setControlStates()">
+                                                                              </div>
+                                                                        </div>
+            
+                                                                        <div class=" row">
+                                                                              <div class="input-group col-sm-12">
+                                                                                    <div class="input-group-prepend">
+                                                                                          <span class="input-group-text">Personal</span>
+                                                                                    </div>
+                                                                                    <input type="text" name="current-personal" class="form-control text-right" placeholder="Current" onchange="setControlStates()">
+                                                                                    <input type="text" name="max-personal" class="form-control text-right" placeholder="Max" onchange="setControlStates()">
+                                                                              </div>
+                                                                        </div>
+            
+                                                                        <div class=" row">
+                                                                              <div class="input-group col-sm-12">
+                                                                                    <div class="input-group-prepend">
+                                                                                          <span class="input-group-text">Peripherical</span>
+                                                                                    </div>
+                                                                                    <input type="text" name="current-peripherical" class="form-control text-right" placeholder="Current" onchange="setControlStates()">
+                                                                                    <input type="text" name="max-peripherical" class="form-control text-right" placeholder="Max" onchange="setControlStates()">
+                                                                              </div>
+                                                                        </div>
+            
+                                                                        <div class=" row">
+                                                                              <div class="input-group col-sm-12">
+                                                                                    <div class="input-group-prepend">
+                                                                                          <span class="input-group-text">Commited</span>
+                                                                                    </div>
+                                                                                    <input type="text" name="commited" class="form-control text-right" onchange="setControlStates()">
+                                                                              </div>
+                                                                        </div>
+                                                                  </form>
+                                                            </div>
+                                                      </div>
+                                                </div>
+                                          </div>
+
+
+                                    </div>
+                              </div>
+
+
+                              <div class="row">
+                                    <div class="col-sm-6">
+                                          
+                                    </div>
+
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+</div>
+
+<script>
+
+      var charactar = {
+            "id": 0,
+            "owner": 2,
+            "data": {
+                  "general": {
+                        "name": "glimpse",
+                        "caste": "night",
+                        "concept": "thief",
+                        "anima": "pegasus",
+                        "supernalAbility": "Athletics"
+                  },
+
+                  "attributes": {
+                        "strength": 1,
+                        "dexterity": 1,
+                        "stamina": 1,
+                        "charisma": 2,
+                        "manipulation": 2,
+                        "appearance": 2,
+                        "perception": 3,
+                        "intelligence": 3,
+                        "wits": 3
+                  },
+
+                  "abilities": [
+                        {
+                              "name": "archery",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "athletics",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "awareness",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "brawl",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "bureaucracy",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "craft",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "dodge",
+                              "value": 1,
+                              "favorite": true
+                        },
+                        {
+                              "name": "integrity",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "investigation",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "larceny",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "linguistics",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "lore",
+                              "value": 2,
+                              "favorite": true
+                        },
+                        {
+                              "name": "martialArts",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "medecine",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "melee",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "occult",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "performance",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "presence",
+                              "value": 1,
+                              "favorite": true
+                        },
+                        {
+                              "name": "resistance",
+                              "value": 5,
+                              "favorite": false
+                        },
+                        {
+                              "name": "ride",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "sail",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "socialize",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "stealth",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "survival",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "thrown",
+                              "value": 1,
+                              "favorite": false
+                        },
+                        {
+                              "name": "war",
+                              "value": 1,
+                              "favorite": false
+                        }
+                  ],
+
+                  "additionalAbilities": [
+                        {
+                              "name": "poop throwing",
+                              "value": 5,
+                              "favorite": true
+                        },
+                        {
+                              "name": "dancing",
+                              "value": 7,
+                              "favorite": false
+                        }
+                  ],
+
+                  "specializations": [
+                        { "value": "+1 larceny when gambling" },
+                        { "value": "+1 strength when brawling" }
+                  ],
+
+                  "merits": [
+                        {
+                              "name": "eye of the serpent",
+                              "value": 5
+                        },
+                        {
+                              "name": "mouse of the speaker",
+                              "value": 3
+                        }
+                  ],
+
+                  "willpower": {
+                        "current": 3,
+                        "max": 5
+                  },
+
+                  "limitBreak":
+                  {
+                        "current": 3,
+                        "max": 5
+                  },
+
+                  "essence":
+                  {
+                        "essenceLevel": 5,
+                        "motes": {
+                              "personal":
+                              {
+                                    "current": 30,
+                                    "max": 35
+                              },
+                              "peripherical":
+                              {
+                                    "current": 16,
+                                    "max": 32
+                              },
+
+                              "commited": 10
+                        }
+                  },
+
+                  "limitTrigger": [
+                        { "name": "trahison" },
+                        { "name": "rien" }
+                  ],
+
+                  "experience": {
+                        "normal": {
+                              "current": 160,
+                              "total": 200
+                        },
+
+                        "solar": {
+                              "current": 20,
+                              "total": 30
+                        }
+                  },
+
+                  "weapons": [
+                        {
+                              "name": "heavenly typhoone",
+                              "combatAbility": "strength",
+                              "withering": 4, //or "strength",
+                              "accuracy": 20,
+                              "damage": 10,
+                              "defense": 5,
+                              "overwhelming": 2,
+                              "tags": "ranged, heavy",
+                              "dicePool": 20
+                        },
+                        {
+                              "name": "volcanic hammer",
+                              "combatAbility": "larceny",
+                              "accuracy": 30,
+                              "damage": 100,
+                              "defense": 50,
+                              "overwhelming": 5,
+                              "tags": "burning, heavy",
+                              "dicePool": 40
+                        }
+                  ],
+
+                  "armors": [
+                        {
+                              "name": "buffed jacket",
+                              "soak": 4,
+                              "hardness": 5,
+                              "mobilityPenalty": 2,
+                              "tags": "cheap"
+                        },
+                        {
+                              "name": "reinforced jacket",
+                              "soak": 4,
+                              "hardness": 5,
+                              "mobilityPenalty": 2,
+                              "tags": "expensive"
+                        }
+                  ],
+
+                  "defense": {
+                        "naturalSoak": 2,
+                        "finalSoak": 3,
+                        "parry": 20,
+                        "resolve": 2,
+                        "evasion": 3,
+                        "guile": 4,
+                        "rush": 1,
+                        "disengage": 3,
+                        "joinBattle": 5
+                  },
+
+                  "health": [
+                        {
+                              "value": -0,
+                              "hit": false
+                        },
+                        {
+                              "value": -0,
+                              "hit": false
+                        },
+                        {
+                              "value": -0,
+                              "hit": false
+                        },
+                        {
+                              "value": -0,
+                              "hit": false
+                        },
+                        {
+                              "value": -1,
+                              "hit": true
+                        },
+                        {
+                              "value": -1,
+                              "hit": false
+                        },
+                        {
+                              "value": -2,
+                              "hit": false
+                        },
+                  ],
+
+                  "intimacies": [
+                        {
+                              "name": "protect the people",
+                              "intensity": "major"
+                        },
+                        {
+                              "name": "I hate bob",
+                              "intensity": "defining"
+                        }
+                  ],
+
+                  "charms": [
+                        {
+                              "name": "summoner of typhoon",
+                              "type": "magic",
+                              "duration": "instant",
+                              "cost": "1m, 1w", // will be one day { "motes" : 2, "willpower" : 2, "sorceryMotes" : 20}
+                              "book": "core",
+                              "page": 200,
+                              "effects": "burns and blind everyone"
+                        },
+
+                        {
+                              "name": "summoner of volcanoes",
+                              "type": "magic",
+                              "duration": "instant",
+                              "cost": "1m, 1w",
+                              "book": "core",
+                              "page": 200,
+                              "effects": "burns and blind everyone with volcanic dust"
+                        }
+                  ],
+
+                  "inventory": [
+                        { "item": "sword of magic" },
+                        { "item": "draconic concoction" }
+                  ],
+
+                  "notes": "this is my note"
+            }
+      };
+
+
+      var rangePenalties = {
+            "penalties": {
+                  "close": {
+                        "mortal":
+                        {
+                              "archery": -2,
+                              "thrown": 4
+                        },
+                        "artifact":
+                        {
+                              "archery": -1,
+                              "thrown": 5
+                        },
+                  },
+                  "short": {
+                        "mortal":
+                        {
+                              "archery": 4,
+                              "thrown": 3
+                        },
+                        "artifact":
+                        {
+                              "archery": 5,
+                              "thrown": 4
+                        },
+                  },
+                  "medium": {
+                        "mortal":
+                        {
+                              "archery": 2,
+                              "thrown": 2
+                        },
+                        "artifact":
+                        {
+                              "archery": 3,
+                              "thrown": 3
+                        },
+                  },
+                  "long": {
+                        "mortal":
+                        {
+                              "archery": 0,
+                              "thrown": -1
+                        },
+                        "artifact":
+                        {
+                              "archery": 1,
+                              "thrown": 0
+                        },
+                  },
+                  "extreme": {
+                        "mortal":
+                        {
+                              "archery": -2,
+                              "thrown": -3
+                        },
+                        "artifact":
+                        {
+                              "archery": -1,
+                              "thrown": -2
+                        },
+                  }
+            }
+      }
+
+
+      var defaultAbilityTemplate = `
+      <tr>
+            <td ><input name="__ABILITY_NAME__-favorite" type="checkbox" onchange="setControlStates()"></td>
+            <td ><span class="d-inline-block" data-toggle="tooltip" title="__ABILITY_NOTE__">__ABILITY_LABEL__</span></td>
+            <td><input type="number" name="__ABILITY_NAME__" class="form-control text-right" onchange="setControlStates()"></td>
+      </tr>
+
+      `;
+
+      var healthTemplate = `
+      <div class="row border border rounded p-2 mt-2" id="health__ID__">
+            <div class="col-12">
+            <div class="row mb-1">
+                  <div class="col-sm-5">
+                        <label>Dice Value</label>
+                        <input type="number" name="health__ID__-name" class="form-control " onchange="setControlStates()" placeholder="" value="0">
+                  </div>
+                  <div class="col-sm-7 rounded align-self-end">
+                        <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" id="health__ID__-type1" name="health__ID__-type" value="none" onchange="setControlStates()" checked>
+                              <label class="form-check-label" for="health__ID__-type1">None</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" id="health__ID__-type2" name="health__ID__-type" onchange="setControlStates()" value="bashing">
+                              <label class="form-check-label" for="health__ID__-type2" >Bashing</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" id="health__ID__-type3" name="health__ID__-type" onchange="setControlStates()" value="lethal">
+                              <label class="form-check-label" for="health__ID__-type3">Lethal</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" id="health__ID__-type4" name="health__ID__-type" onchange="setControlStates()" value="aggrave">
+                              <label class="form-check-label" for="health__ID__-type4">Aggrave</label>
+                        </div>
+                  </div>
+            </div>
+            <div class="row">
+                  <div class="col-12">
+                        <button type="button" class="btn btn-primary float-right" onclick="deleteRow('health__ID__'); setControlStates();"><i class="fas fa-trash-alt"></i></button>
+                  </div>
+            </div>
+            </div>
+      </div>
+      `;
+
+
+      var inventoryTemplate = `
+<div class="form-row mt-2"  id="inventory__ID__">
+      <div class="col-9 col-sm-11 col-md-10 col-lg-11">
+            <input type="text" name="inventory__ID__-item" class="form-control" onchange="setControlStates()">
+      </div>
+      <div class="col-3 col-sm-1 col-md-2 col-lg-1">
+            <button type="button" class="btn btn-primary float-right" onclick="deleteRow('inventory__ID__'); setControlStates();"><i class="fas fa-trash-alt"></i></button>
+      </div>
+</div>
+      `;
+
+
+      var specializationTemplate = `
+<div class="form-row" id="specialization__ID__">
+      <div class="col-sm-11">
+            <input type="text" name="specialization__ID__-value" class="form-control" onchange="setControlStates()">
+      </div>
+      <div class="col-sm-1">
+            <button type="button" class="btn btn-primary float-right" onclick="deleteRow('specialization__ID__'); setControlStates();"><i class="fas fa-trash-alt"></i></button>
+      </div>
+</div>      
+      `;
+
+      var meritTemplate = `
+<div class="form-row" id="merit__ID__">
+      <div class="col-8">
+            <input type="text" class="form-control" name="merit__ID__-name" onchange="setControlStates()">
+      </div>
+      <div class="col-2">
+            <input type="text" class="form-control" name="merit__ID__-value" onchange="setControlStates()">
+      </div>
+      <div class="col-md-2">
+            <button type="button" class="btn btn-primary float-right" onclick="deleteRow('merit__ID__'); setControlStates();"><i class="fas fa-trash-alt"></i></button>
+      </div>
+</div>
+      `;
+
+      var limitTriggerTemplate = `
+<div class="form-row" id="limitTrigger__ID__">
+      <div class="col-md-10">
+            <input type="text" name="limitTrigger__ID__-name" class="form-control" onchange="setControlStates()">
+      </div>
+      <div class="col-md-2">
+            <button type="button" class="btn btn-primary float-right" onclick="deleteRow('limitTrigger__ID__'); setControlStates();"><i class="fas fa-trash-alt"></i></button>
+      </div>
+</div>
+      `;
+
+      var weaponTemplate = `
+<div class="form-row mb-3" id="weapon__ID__" >
+      <div class="container border border border rounded p-2 shadow">
+            <div class="row">
+                  <div class=" col-md-4">
+                        <div class="form-group">
+                              <label><b>Name</b></label>
+                              <input type="text" class="form-control" name="weapon__ID__-name" onchange="setControlStates()">
+                        </div>
+                  </div>
+                  <div class="col-md-4">
+                        <div class="form-group">
+                              <label>Combat Ability</label>
+                              <select class="form-control" name="weapon__ID__-combatAbility" onchange="setControlStates(); updateWeaponsDisplay();">
+                                    <option value="archery">Archery</option>
+                                    <option value="brawl">Brawl</option>
+                                    <option value="melee">Melee</option>                        
+                                    <option value="thrown">Thrown</option>
+                              </select>
+                        </div>
+                  </div>
+                  <div class="col-md-4">
+                        <div class="form-group">
+                              <label data-toggle="tooltip" data-placement="top" title="Strength or 4 for firewand/crossbow">Withering</label>
+                              <select class="form-control" name="weapon__ID__-withering" onchange="setControlStates()">
+                                    <option value="strength">Strength</option>
+                                    <option value="4">4 Dices</option>
+                              </select>
+                        </div>
+                  </div>
+            </div>
+            <div class="row">                  
+                  <div class="col-md-2" >
+                        <div class="form-group">
+                              <div id="weapon__ID__-hideAccuracy">
+                                    <label>Accuracy</label>
+                                    <input type="text" class="form-control" name="weapon__ID__-accuracy" onchange="setControlStates()">
+                              </div>
+                              <div id="weapon__ID__-hideArtifact">
+                                    <label for="weapon__ID__-artifact1">Artifact</label><br>
+                                    <div class="text-center" >
+                                          <input id="weapon__ID__-artifact1" name="weapon__ID__-artifact"  type="checkbox" onchange="setControlStates()">
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+                  <div class=" col-md-2">
+                        <div class="form-group">
+                              <label>Damage</label>
+                              <input type="text" class="form-control" name="weapon__ID__-damage" onchange="setControlStates()">
+                        </div>
+                  </div>
+                  <div class=" col-md-2">
+                        <div class="form-group">
+                              <label>Defense</label>
+                              <input type="text" class="form-control" name="weapon__ID__-defense" onchange="setControlStates()">
+                        </div>
+                  </div>
+                  <div class=" col-md-2">
+                        <div class="form-group">
+                              <label>Overwhelming</label>
+                              <input type="text" class="form-control" name="weapon__ID__-overwhelming" onchange="setControlStates()">
+                        </div>
+                  </div>
+                  <div class=" col-md-2">
+                        <label>Tags</label>
+                        <input type="text" class="form-control" name="weapon__ID__-tags" onchange="setControlStates()">
+                  </div>
+                  <div class=" col-md-2" hidden>
+                        <label>Dice </label>
+                        <input type="text" class="form-control" name="weapon__ID__-dicePool" onchange="setControlStates()">
+                  </div>
+            </div>
+            <div class="row mt-2">     
+                  <div class="col-12 d-flex flex-row-reverse">
+                        <button type="button" class="btn btn-primary" onclick="deleteRow('weapon__ID__'); setControlStates();"><i class="fas fa-trash-alt"></i></button>
+                  </div>
+            </div>
+      </div>
+</div>
+      `;
+
+      var additionalTemplate = `
+      <tr id="additional__ID__">
+            <td><input name="additional__ID__-favorite" type="checkbox" onchange="setControlStates()"></td>
+            <td ><input type="text" name="additional__ID__-name" class="form-control" onchange="setControlStates()"></td>
+            <td><input type="number" name="additional__ID__-value" class="form-control text-right" onchange="setControlStates()"></td>
+            <td><button type="button" class="btn btn-primary float-right" onclick="deleteRow('additional__ID__'); setControlStates();"><i class="fas fa-trash-alt"></i></button></td>
+      </tr>
+      `;
+
+      var armorTemplate = `
+<div class="row border rounded shadow mt-3 p-2" id="armor__ID__">
+      <div class="col-12">
+            <div class="row">
+                  <div class=" col-md-3">
+                        <label>Name</label>
+                        <input type="text" class="form-control" name="armor__ID__-name" onchange="setControlStates()">
+                  </div>
+                  <div class=" col-md-2">
+                        <label>Soak</label>
+                        <input type="text" class="form-control" name="armor__ID__-soak" onchange="setControlStates()">
+                  </div>
+                  <div class=" col-md-2">
+                        <label>Hardness</label>
+                        <input type="text" class="form-control" name="armor__ID__-hardness" onchange="setControlStates()">
+                  </div>
+
+                  <div class=" col-md-2">
+                        <label data-toggle="tooltip" data-placement="top" title="Mobility Penalty">MP</label>
+                        <input type="text" class="form-control" name="armor__ID__-mobilityPenalty" onchange="setControlStates()">
+                  </div>
+                  <div class=" col-md-3">
+                        <label>Tags</label>
+                        <input type="text" class="form-control" name="armor__ID__-tags" onchange="setControlStates()">
+                  </div>
+
+            </div>
+            <div class="row mt-2">
+                  <div class="col-12 d-flex flex-row-reverse">
+                        <button type="button" class="btn btn-primary float-right" onclick="deleteRow('armor__ID__'); setControlStates(); fixToolTips();"><i class="fas fa-trash-alt"></i></button>
+                  </div>
+            </div>
+      </div>
+</div>
+      `;
+
+
+      var trackerTemplate = `
+      <div class="form-row border rounded shadow p-2 mb-3" id="track__ID__">
+            <div class="container">
+                  <div class="row">
+                        <div class="col-md-4">
+                              <div class="form-group">
+                                    <label>Reason</label>
+                                    <input type="text" class="form-control" name="track__ID__-description" onchange="setControlStates()">
+                              </div>
+                        </div>
+                        <div class="col-md-4">
+                              <div class="form-group">
+                                    <label data-toggle="tooltip" data-placement="top" title="Experience gained or spent/lost Ex: -20 or 20" >Experience</label>
+                                    <input type="text" class="form-control" name="track__ID__-experience" onchange="setControlStates(); updateExperience();" value="0">
+                              </div>
+                        </div>
+                        <div class="col-md-4">
+                              <div class="form-group">
+                                    <label data-toggle="tooltip" data-placement="top" title="Experience gained or spent/lost Ex: -20 or 20">Solar Experience</label>
+                                    <input type="text" class="form-control" name="track__ID__-specialExperience" onchange="setControlStates(); updateExperience();" value="0">
+                              </div>
+                        </div>
+                  </div>
+
+                  <div class="row">
+                        <div class="col-md-4">
+                              <div class="form-group">
+                                    <label>Game</label>
+                                    <input type="text" class="form-control" name="track__ID__-game" onchange="setControlStates()">
+                              </div>
+                        </div>
+                        <div class="col-md-4">
+                              <div class="form-group">
+                                    <label>Session</label>
+                                    <input type="text" class="form-control" name="track__ID__-session" onchange="setControlStates()">
+                              </div>
+                        </div>
+                        <div class="col-md-4">
+                              <div class="form-group">
+                                    <label>Essence</label>
+                                    <input type="text" class="form-control" name="track__ID__-essence" onchange="setControlStates()" value="0">
+                              </div>
+                        </div>
+                  </div>
+                  <div class="row">
+                        <div class="col-12">
+                              <button type="button" class="btn btn-primary float-right" onclick="deleteRow('track__ID__'); setControlStates();"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                  </div>
+            </div>
+      </div>
+      `;
+
+      // here we could add tag like : combat ability, social ability so we can sort their category
+      var defaultAbilities =
+      {
+            "abilities": [
+                  {
+                        "name": "archery",
+                        "label": "Archery",
+                        "type": "combat",
+                        "notes": "Bows, Crossbows, Slings, Dart Blowers"
+                  },
+                  {
+                        "name": "athletics",
+                        "label": "Athletics",
+                        "type": "",
+                        "notes": "Speed, Acrobatics, Heavy lifting"
+                  },
+                  {
+                        "name": "awareness",
+                        "label": "Awareness",
+                        "type": "",
+                        "notes": "Sight, Hearing, Touch, Taste, Smell"
+                  },
+                  {
+                        "name": "brawl",
+                        "label": "Brawl",
+                        "type": "combat",
+                        "notes": "Fighting with fists, grapples, thrown furniture"
+                  },
+                  {
+                        "name": "bureaucracy",
+                        "label": "Bureaucracy",
+                        "type": "",
+                        "notes": "Business sense, Management, Planning"
+                  },
+                  {
+                        "name": "craft",
+                        "label": "Craft",
+                        "type": "",
+                        "notes": "Craft, Build, Deconstruct, Repair"
+                  },
+                  {
+                        "name": "dodge",
+                        "label": "Dodge",
+                        "type": "",
+                        "notes": "Avoid harm, seize initiative"
+                  },
+                  {
+                        "name": "integrity",
+                        "label": "Integrity",
+                        "type": "",
+                        "notes": "Resist manipulation, Resist torture, Meditate, Force of Will"
+                  },
+                  {
+                        "name": "investigation",
+                        "label": "Investigation",
+                        "type": "",
+                        "notes": "Solve crime, Detect human activity, Interrogate"
+                  },
+                  {
+                        "name": "larceny",
+                        "label": "Larceny",
+                        "type": "",
+                        "notes": "Steal, Swindle, Disguise, Bypass, Perform Heist"
+                  },
+                  {
+                        "name": "linguistics",
+                        "label": "Linguistics",
+                        "type": "",
+                        "notes": "Communicate, Translate, Read, Write, Manipulate with text"
+                  },
+                  {
+                        "name": "lore",
+                        "label": "Lore",
+                        "type": "",
+                        "notes": "Affirm Knowledge, Teach, Manipulate Essence or the Wyld"
+                  },
+                  {
+                        "name": "martialArts",
+                        "label": "Martial Arts",
+                        "type": "combat",
+                        "notes": "Learn Sidereal Martial Arts from a Mentor"
+                  },
+                  {
+                        "name": "medecine",
+                        "label": "Medecine",
+                        "type": "",
+                        "notes": "Cure Poison/Sickness, Heal Wounds, Diagnose"
+                  },
+                  {
+                        "name": "melee",
+                        "label": "Melee",
+                        "type": "combat",
+                        "notes": "Attack, Defend, Summon weapons, A few ranged Attacks"
+                  },
+                  {
+                        "name": "occult",
+                        "label": "Occult",
+                        "type": "",
+                        "notes": "Mastery over Demons/Elementals/Gods/Fair Folk, Sorcery"
+                  },
+                  {
+                        "name": "performance",
+                        "label": "Performance",
+                        "type": "",
+                        "notes": "Speeches, Dance/Music/Acting/Courting, Empowering Songs"
+                  },
+                  {
+                        "name": "presence",
+                        "label": "Presence",
+                        "type": "",
+                        "notes": "Convince, Radiate Authority, Empower Followers"
+                  },
+                  {
+                        "name": "resistance",
+                        "label": "Resistance",
+                        "type": "",
+                        "notes": "Toughness, Invincibility, Immunity, Rapid Healing"
+                  },
+                  {
+                        "name": "ride",
+                        "label": "Ride",
+                        "type": "",
+                        "notes": "Mounted travel & combat"
+                  },
+                  {
+                        "name": "sail",
+                        "label": "Sail",
+                        "type": "",
+                        "notes": "Ship travel & combat"
+                  },
+                  {
+                        "name": "socialize",
+                        "label": "Socialize",
+                        "type": "",
+                        "notes": "Guard thoughts, Influence courts, Split own personality"
+                  },
+                  {
+                        "name": "stealth",
+                        "label": "Stealth",
+                        "type": "",
+                        "notes": "Hide, Move undected, Assassinate"
+                  },
+                  {
+                        "name": "survival",
+                        "label": "Survival",
+                        "type": "",
+                        "notes": "Survive in nature, Track prey, Tame and Empower Pet"
+                  },
+                  {
+                        "name": "thrown",
+                        "label": "Thrown",
+                        "type": "combat",
+                        "notes": "Throwing Knives, Chakrams, Needles"
+                  },
+                  {
+                        "name": "war",
+                        "label": "War",
+                        "type": "",
+                        "notes": "Command fighters, Command armies, Strategize"
+                  }
+            ]
+      }
+
+      function createDefaultAbilities() {
+            abilitiesForm = document.getElementById("abilitiesContainer");
+
+            abilitiesForm.innerHTML = ""
+
+            defaultAbilities["abilities"].forEach(ability => {
+
+                  var tmp = defaultAbilityTemplate.split("__ABILITY_NAME__").join(ability["name"]);
+                  tmp = tmp.split("__ABILITY_LABEL__").join(ability["label"]);
+                  tmp = tmp.split("__ABILITY_NOTE__").join(ability["notes"]);
+
+                  abilitiesForm.innerHTML = abilitiesForm.innerHTML + tmp;
+
+            });
+
+      }
+
+      createDefaultAbilities();
+
+      function fillSingle(form, data) {
+            if (data == null) {
+                  return;
+            }
+
+            var form = document.getElementById(form);
+
+            // Loop over the object keys
+            Object.keys(data).forEach(function (k) {
+
+                  input = form.querySelector('[name="' + k + '"]')
+
+                  if (input == null) {
+                        return;
+                  }
+
+                  if (input.type == "checkbox") {
+                        input.checked = data[k];
+                  }
+                  else {
+                        input.value = data[k];
+                  }
+
+
+                  if(input.onchange != null)
+                  {
+                        input.onchange();
+                  }
+            });
+      }
+
+      function fillAbilities(abilities) {
+            if (abilities == null) {
+                  return;
+            }
+
+            var form = document.getElementById("abilities");
+
+            abilities.forEach(ability => {
+                  form.querySelector('[name="' + ability["name"] + '"]').value = ability["value"];
+                  form.querySelector('[name="' + ability["name"] + '-favorite"]').checked = ability["favorite"]
+            });
+
+      }
+
+      function fillMulti(form, data, prepend, fields) {
+
+            if (data == null) {
+                  return
+            }
+
+            var form = document.getElementById(form);
+
+            var formdata = new FormData(form);
+
+            var ids = [];
+
+            formdata.forEach(function (value, key) {
+
+                  isolatedKey = key.split("-")[0];
+
+                  if (ids.indexOf(isolatedKey) == -1 && isolatedKey.indexOf(prepend) != -1) {
+                        ids.push(isolatedKey);
+                  }
+            });
+
+            data.forEach(function (item, i) {
+                  fields["fields"].forEach(function (k) {
+
+                        var id = ids[i];
+
+                        if (k["type"] == "input" || k["type"] == "combo") {
+                              input = form.querySelector('[name="' + id + "-" + k["value"] + '"]');
+
+                              if (input == null) {
+                                    return;
+                              }
+
+                              input.value = item[k["value"]];
+                        }
+
+                        if (k["type"] == "radio") {
+                              inputs = form.querySelectorAll('[name="' + id + "-" + k["value"] + '"]');
+
+                              if (inputs == null) {
+                                    return;
+                              }
+
+                              inputs.forEach(radiobutton => {
+                                    if (radiobutton.value == item[k["value"]]) {
+                                          radiobutton.checked = true;
+                                    }
+                                    else {
+                                          radiobutton.checked = false;
+                                    }
+                              });
+                        }
+
+                        if (k["type"] == "checkbox") {
+                              input = form.querySelector('[name="' + id + "-" + k["value"] + '"]')
+
+                              if (input == null) {
+                                    return;
+                              }
+
+                              input.checked = item[k["value"]]
+                        }
+
+                        if(input.onchange != null)
+                        {
+                              input.onchange();
+                        }
+                  });
+            });
+      }
+
+      function fillEssence(essence) {
+            if (essence == null) {
+                  return;
+            }
+
+            var form = document.getElementById("essence");
+
+            form.querySelector('[name="essenceLevel"]').value = essence["essenceLevel"];
+            form.querySelector('[name="commited"]').value = essence["motes"]["commited"];
+
+            form.querySelector('[name="current-personal"]').value = essence["motes"]["personal"]["current"];
+            form.querySelector('[name="max-personal"]').value = essence["motes"]["personal"]["max"];
+
+            form.querySelector('[name="current-peripherical"]').value = essence["motes"]["peripherical"]["current"];
+            form.querySelector('[name="max-peripherical"]').value = essence["motes"]["peripherical"]["max"];
+      }
+
+
+      function fillCharacter(character) {
+
+            charactar = character;
+
+            fillSingle("general", character["data"]["general"]);
+            fillSingle("attributes", character["data"]["attributes"]);
+
+            fillAbilities(character["data"]["abilities"]);
+
+            if (character["data"]["additionalAbilities"] != null) {
+                  document.getElementById("additionalAbilitiesContainer").innerHTML = ""
+
+                  var additionalLength = character["data"]["additionalAbilities"].length;
+
+                  for (var i = 0; i < additionalLength; i++) {
+                        addRow(additionalTemplate, "additionalAbilitiesContainer", "additional")
+                  }
+
+                  fillMulti("additionalAbilities", character["data"]["additionalAbilities"], "additional", additionalFields)
+            }
+
+
+
+
+            if (character["data"]["merits"] != null) {
+                  document.getElementById("merits").innerHTML = ""
+
+                  var meritLength = character["data"]["merits"].length;
+
+                  for (var i = 0; i < meritLength; i++) {
+                        addRow(meritTemplate, "merits", "merit")
+                  }
+
+                  fillMulti("merits", character["data"]["merits"], "merit", meritsFields);
+            }
+
+
+            if (character["data"]["specializations"] != null) {
+                  document.getElementById("specializations").innerHTML = ""
+
+                  var specializationLength = character["data"]["specializations"].length;
+
+                  for (var i = 0; i < specializationLength; i++) {
+                        addRow(specializationTemplate, "specializations", "specialization")
+                  }
+
+                  fillMulti("specializations", character["data"]["specializations"], "specialization", specializationFields)
+            }
+
+            if (character["data"]["weapons"] != null) {
+                  document.getElementById("weapons").innerHTML = ""
+
+                  var weaponLength = character["data"]["weapons"].length;
+
+                  for (var i = 0; i < weaponLength; i++) {
+                        addRow(weaponTemplate, "weapons", "weapon")
+                  }
+
+                  fillMulti("weapons", character["data"]["weapons"], "weapon", weaponsFields);
+            }
+
+
+            if (character["data"]["charms"] != null) {
+                  document.getElementById("charms").innerHTML = ""
+
+                  var charmLength = character["data"]["charms"].length;
+
+                  for (var i = 0; i < charmLength; i++) {
+                        addRow(charmTemplate, "charms", "charm")
+                  }
+
+                  fillMulti("charms", character["data"]["charms"], "charm", charmsFields);
+            }
+
+            if (character["data"]["intimacies"] != null) {
+                  document.getElementById("intimacies").innerHTML = ""
+
+                  var intimacyLength = character["data"]["intimacies"].length;
+
+                  for (var i = 0; i < intimacyLength; i++) {
+                        addRow(intimacyTemplate, "intimacies", "intimacy")
+                  }
+
+                  fillMulti("intimacies", character["data"]["intimacies"], "intimacy", intimaciesFields);
+            }
+
+
+            if (character["data"]["inventory"] != null) {
+                  document.getElementById("inventory").innerHTML = ""
+
+                  var inventoryLength = character["data"]["inventory"].length;
+
+                  for (var i = 0; i < inventoryLength; i++) {
+                        addRow(inventoryTemplate, "inventory", "inventory")
+                  }
+
+                  fillMulti("inventory", character["data"]["inventory"], "inventory", inventoryFields);
+            }
+
+            fillSingle("willpower", character["data"]["willpower"]);
+            fillSingle("limitBreak", character["data"]["limitBreak"]);
+
+
+            if (character["data"]["limitTrigger"] != null) {
+                  document.getElementById("limitTrigger").innerHTML = ""
+
+                  var limitTriggerLength = character["data"]["limitTrigger"].length;
+
+                  for (var i = 0; i < limitTriggerLength; i++) {
+                        addRow(limitTriggerTemplate, "limitTrigger", "limitTrigger")
+                  }
+
+                  fillMulti("limitTrigger", character["data"]["limitTrigger"], "limitTrigger", limitTrigggerFields);
+            }
+
+            if (character["data"]["armors"] != null) {
+                  document.getElementById("armors").innerHTML = ""
+
+                  var armorLength = character["data"]["armors"].length;
+
+                  for (var i = 0; i < armorLength; i++) {
+                        addRow(armorTemplate, "armors", "armor")
+                  }
+
+                  fillMulti("armors", character["data"]["armors"], "armor", armorsFields)
+            }
+
+            fillEssence(character["data"]["essence"])
+
+            if (character["data"]["notes"] != null) {
+                  document.getElementById("notes").value = character["data"]["notes"];
+            }
+
+            if (character["data"]["more"] != null) {
+                  document.getElementById("loreBackground").value = character["data"]["more"]["lore"];
+            }
+
+            if (character["data"]["health"]["healthPoints"] != null) {
+                  document.getElementById("health").innerHTML = ""
+
+                  var healthLength = character["data"]["health"]["healthPoints"].length;
+
+                  for (var i = 0; i < healthLength; i++) {
+                        addRow(healthTemplate, "health", "health")
+                  }
+
+                  fillMulti("health", character["data"]["health"]["healthPoints"], "health", healthFields)
+
+            }
+
+            if (character["data"]["tracker"] != null) {
+                  document.getElementById("tracker").innerHTML = ""
+
+                  var trackerLength = character["data"]["tracker"].length;
+
+                  for (var i = trackerLength - 1; i >= 0; i--) {
+                        addRow(trackerTemplate, "tracker", "track")
+                  }
+
+                  fillMulti("tracker", character["data"]["tracker"], "track", trackerFields);
+            }
+
+            fillSingle("incapacitated", character["data"]["health"])
+
+            fillSpecial(character);
+
+      }
+
+      function getHealthIncapacitated() {
+            incapacitatedElement = document.getElementsByName("incapacitated")[0]
+
+            return incapacitatedElement.checked;
+      }
+
+      function fillSpecial(character) {
+            var currentWeaponTemplate = `
+                  <option>__WEAPON_NAME__</option>
+            `;
+
+            currentWeaponElem = document.getElementById("currentWeapon");
+
+            currentWeaponElem.innerHTML = ""
+
+            weapons = [{ "name": "Unarmed" }]
+
+            if (character["data"]["weapons"] != null) {
+                  character["data"]["weapons"].forEach(item => {
+                        weapons.push(item);
+                  });
+            }
+
+            weapons.forEach(item => {
+                  var tmp = currentWeaponTemplate.split("__WEAPON_NAME__").join(item["name"]);
+
+                  currentWeaponElem.innerHTML = currentWeaponElem.innerHTML + tmp;
+            });
+
+
+
+            var currentArmorTemplate = `
+                  <option>__ARMOR_NAME__</option>
+            `;
+
+            currentArmorElem = document.getElementById("currentArmor");
+
+            currentArmorElem.innerHTML = ""
+
+
+            armors = [{ "name": "Unarmored" }];
+
+            character["data"]["armors"].forEach(item => {
+                  armors.push(item);
+            });
+
+            armors.forEach(item => {
+                  var tmp = currentArmorTemplate.split("__ARMOR_NAME__").join(item["name"]);
+
+                  currentArmorElem.innerHTML = currentArmorElem.innerHTML + tmp;
+            });
+      }
+
+
+      function getJSONSingle(form, removeContain) {
+            var form = document.getElementById(form);
+
+            var data = new FormData(form);
+
+            var object = {};
+
+            data.forEach(function (value, key) {
+                  if (removeContain != null && removeContain != "" && key.indexOf(removeContain) != -1) {
+                        return;
+                  }
+
+                  var valueInt = parseInt(value)
+
+                  if (!isNaN(valueInt)) {
+                        object[key] = valueInt;
+                  }
+                  else {
+                        object[key] = value;
+                  }
+            });
+
+            return object
+      }
+
+
+      function getJSONAbilities() {
+            var form = document.getElementById("abilities");
+
+            var data = new FormData(form);
+
+            var abilities = [];
+
+
+            data.forEach(function (value, key) {
+
+                  if (key.indexOf("favorite") != -1) {
+                        return;
+                  }
+
+                  var ability = {}
+                  ability["name"] = key;
+                  ability["value"] = parseInt(value);
+
+                  favoriteKey = key + "-favorite"
+
+                  if (data.has(favoriteKey)) {
+                        ability["favorite"] = data.get(favoriteKey) == "on"
+                  }
+                  else {
+                        ability["favorite"] = false
+                  }
+
+                  abilities.push(ability)
+            });
+
+            return abilities
+      }
+
+
+
+      function getJSONEssence() {
+            var form = document.getElementById("essence");
+            var data = new FormData(form);
+
+            var essence = {
+                  "motes":
+                  {
+                        "personal":
+                        {
+                              "current": 0,
+                              "max": 0
+                        },
+
+                        "peripherical":
+                        {
+                              "current": 0,
+                              "max": 0
+                        },
+
+                        "commited": 0
+                  }
+            };
+
+            essence["essenceLevel"] = parseInt(data.get("essenceLevel"));
+            essence["motes"]["personal"]["current"] = parseInt(data.get("current-personal"));
+            essence["motes"]["personal"]["max"] = parseInt(data.get("max-personal"));
+            essence["motes"]["peripherical"]["current"] = parseInt(data.get("current-peripherical"));
+            essence["motes"]["peripherical"]["max"] = parseInt(data.get("max-peripherical"));
+            essence["motes"]["commited"] = parseInt(data.get("commited"));
+
+            return essence;
+
+      }
+
+      var trackerFields =
+      {
+            "fields": [
+                  {
+                        "value": "description",
+                        "type": "input"
+                  },
+                  {
+                        "value": "experience",
+                        "type": "input"
+                  },
+                  {
+                        "value": "specialExperience",
+                        "type": "input"
+                  },
+                  {
+                        "value": "game",
+                        "type": "input"
+                  },
+                  {
+                        "value": "session",
+                        "type": "input"
+                  },
+                  {
+                        "value": "essence",
+                        "type": "input"
+                  },
+            ]
+      }
+
+      var additionalFields = {
+            "fields": [
+                  {
+                        "value": "name",
+                        "type": "input"
+                  },
+                  {
+                        "value": "value",
+                        "type": "input"
+                  },
+                  {
+                        "value": "favorite",
+                        "type": "checkbox"
+                  },
+            ]
+      }
+
+      var weaponsFields =
+      {
+            "fields": [
+                  {
+                        "value": "name",
+                        "type": "input"
+                  },
+                  {
+                        "value": "combatAbility",
+                        "type": "combo"
+                  },
+                  {
+                        "value": "withering",
+                        "type": "combo"
+                  },
+                  {
+                        "value": "accuracy",
+                        "type": "input"
+                  },
+                  {
+                        "value": "artifact",
+                        "type": "checkbox"
+                  },
+                  {
+                        "value": "damage",
+                        "type": "input"
+                  },
+                  {
+                        "value": "defense",
+                        "type": "input"
+                  },
+                  {
+                        "value": "overwhelming",
+                        "type": "input"
+                  },
+                  {
+                        "value": "tags",
+                        "type": "input"
+                  },
+                  {
+                        "value": "dicePool",
+                        "type": "input"
+                  }
+            ]
+      }
+
+      var armorsFields = {
+            "fields": [
+                  {
+                        "value": "name",
+                        "type": "input"
+                  },
+                  {
+                        "value": "soak",
+                        "type": "input"
+                  },
+                  {
+                        "value": "hardness",
+                        "type": "input"
+                  },
+                  {
+                        "value": "mobilityPenalty",
+                        "type": "input"
+                  },
+                  {
+                        "value": "tags",
+                        "type": "input"
+                  },
+            ]
+      }
+
+      var healthFields = {
+            "fields": [
+                  {
+                        "value": "name",
+                        "type": "input"
+                  },
+                  {
+                        "value": "type",
+                        "type": "radio"
+                  }
+            ]
+      }
+
+      var intimaciesFields = {
+            "fields": [
+                  {
+                        "value": "name",
+                        "type": "input"
+                  }, {
+                        "value": "intensity",
+                        "type": "input"
+                  },
+            ]
+      }
+
+      var charmsFields = {
+            "fields": [
+                  {
+                        "value": "name",
+                        "type": "input"
+                  },
+                  {
+                        "value": "tree",
+                        "type": "input"
+                  },
+                  {
+                        "value": "essence",
+                        "type": "input"
+                  },
+                  {
+                        "value": "ability",
+                        "type": "input"
+                  },
+                  {
+                        "value": "cost",
+                        "type": "input"
+                  },
+                  {
+                        "value": "book",
+                        "type": "input"
+                  },
+                  {
+                        "value": "page",
+                        "type": "input"
+                  },
+                  {
+                        "value": "type",
+                        "type": "input"
+                  },
+                  {
+                        "value": "duration",
+                        "type": "input"
+                  },
+                  {
+                        "value": "keywords",
+                        "type": "input"
+                  },
+                  {
+                        "value": "requirements",
+                        "type": "input"
+                  },
+                  {
+                        "value": "description",
+                        "type": "input"
+                  },
+
+            ]
+
+      }
+
+      var inventoryFields = {
+            "fields": [
+                  {
+                        "value": "item",
+                        "type": "input"
+                  },
+            ]
+      }
+
+      var specializationFields = {
+            "fields": [
+                  {
+                        "value": "value",
+                        "type": "input"
+                  }
+            ]
+      }
+
+      var limitTrigggerFields = {
+            "fields": [
+                  {
+                        "value": "name",
+                        "type": "input"
+                  }
+            ]
+      }
+
+      var meritsFields = {
+            "fields": [
+                  {
+                        "value": "name",
+                        "type": "input"
+                  },
+                  {
+                        "value": "value",
+                        "type": "input"
+                  }
+            ]
+      }
+
+
+      var characterTypes = [
+                        {
+                              "name" : "dawn",
+                              "label" : "Dawn",
+                              "caste" : "solar",
+                              "supernals": [
+                                    { "name" : "archery", "label" : "Archery" },
+                                    { "name" : "awareness", "label" : "Awareness" },
+                                    { "name" : "brawl", "label" : "Brawl" },
+                                    { "name" : "dodge", "label" : "Dodge" },
+                                    { "name" : "melee", "label" : "Melee" },
+                                    { "name" : "resistance", "label" : "Resistance"},
+                                    { "name" : "thrown", "label" : "Thrown" },
+                                    { "name" : "war", "label" : "War" }
+                              ]
+                        },
+
+                        {     "name" : "zenith",
+                              "label" : "Zenith",
+                              "caste" : "solar",
+                              "supernals": [
+                                    { "name" : "athletics", "label" : "Athletics" },
+                                    { "name" : "integrity", "label" : "Integrity" },
+                                    { "name" : "lore", "label" : "Lore"},
+                                    { "name" : "performance", "label" : "Performance" },
+                                    { "name" : "presence", "label" : "Presence" },
+                                    { "name" : "resistance", "label" : "Resistance"},
+                                    { "name" : "survival", "label" : "Survival" },
+                                    { "name" : "war", "label" : "War" }
+                              ]
+                        },
+
+                        {     "name": "twilight",
+                              "label" : "Twilight",
+                              "caste" : "solar",
+                              "supernals": [
+                                    { "name" : "bureaucracy", "label" : "Bureaucracy" },
+                                    { "name" : "craft", "label" : "Craft" },
+                                    { "name" : "integrity", "label" : "Integrity" },
+                                    { "name" : "investigation", "label" : "Investigation" },
+                                    { "name" : "linguistic", "label" : "Linguistic" },
+                                    { "name" : "lore", "label" : "Lore"},
+                                    { "name" : "medecine", "label" : "Medecine" },
+                                    { "name" : "occult", "label" : "Occult" },
+                              ]
+                        },
+
+                       {
+                              "name" : "night",
+                              "label" : "Night",
+                              "caste" : "solar",
+                              "supernals": [
+                                    { "name" : "athletics", "label" : "Athletics" },
+                                    { "name" : "awareness", "label" : "Awareness" },
+                                    { "name" : "dodge", "label" : "Dodge" },
+                                    { "name" : "investigation", "label" : "Investigation" },
+                                    { "name" : "larceny", "label" : "Larceny" },
+                                    { "name" : "ride", "label" : "Ride" },
+                                    { "name" : "socialize", "label" : "Socialize" },
+                                    { "name" : "stealth", "label" : "Stealth" },
+                              ]
+                        },
+
+                        {     
+                              "name" : "eclipse",
+                              "label" : "Eclipse",
+                              "caste" : "solar",
+                              "supernals": [
+                                    { "name" : "bureaucracy", "label" : "Bureaucracy" },
+                                    { "name" : "larceny", "label" : "Larceny" },
+                                    { "name" : "linguistic", "label" : "Linguistic" },
+                                    { "name" : "occult", "label" : "Occult" },
+                                    { "name" : "presence", "label" : "Presence" },
+                                    { "name" : "ride", "label" : "Ride" },
+                                    { "name" : "sail", "label" : "Sail" },
+                                    { "name" : "socialize", "label" : "Socialize" },
+                              ]
+                        },
+
+                        /*{
+                              "name" : "dusk",
+                              "label" : "Dusk",
+                              "caste" : "celestial,abyssal",
+                        },
+
+                        
+                        {
+                              "name" : "full-moon",
+                              "label" : "Full Moon",
+                              "caste" : "celestial,lunar",
+                        }*/
+
+                        {
+                              "name" : "mortal",
+                              "label" : "Mortal",
+                              "caste" : "none"
+                        }
+                  ]
+      
+
+
+
+      function getJSONMulti(form, fields, prepend) {
+            var form = document.getElementById(form);
+
+            var data = new FormData(form);
+
+            var jsonArray = [];
+
+            var items = [];
+
+            data.forEach(function (value, key) {
+
+                  isolatedKey = key.split("-")[0];
+
+                  if (items.indexOf(isolatedKey) == -1 && isolatedKey.indexOf(prepend) != -1) {
+                        items.push(isolatedKey);
+                  }
+            });
+
+
+            items.forEach(function (item, i) {
+
+                  var id = item.split(prepend)[1];
+
+                  var object = {}
+
+                  fields["fields"].forEach(function (field) {
+
+                        var realKey = prepend + id + "-" + field["value"];
+
+                        if (field["type"] == "checkbox") {
+                              if (data.has(realKey)) {
+                                    object[field["value"]] = true;
+                              } else {
+                                    object[field["value"]] = false
+                              }
+
+                              return;
+                        }
+
+
+                        var tryint = parseInt(data.get(realKey));
+
+                        if (!isNaN(tryint)) {
+
+                              object[field["value"]] = tryint;
+                        }
+                        else {
+                              object[field["value"]] = data.get(realKey);
+                        }
+                  });
+
+                  jsonArray.push(object)
+            });
+
+            return jsonArray
+
+      }
+
+      function getCharacterDataJSON() {
+            var t0 = performance.now();
+
+            var data = {
+                  "health":
+                  {
+                        "healthPoints": [],
+                        "incapacitated": false
+                  },
+
+                  "more":
+                  {
+                        "lore": null
+                  },
+
+                  "tracker": []
+            }
+
+            data["general"] = getJSONSingle("general");
+            data["attributes"] = getJSONSingle("attributes");
+            data["abilities"] = getJSONAbilities();
+            data["specializations"] = getJSONMulti("specializations", specializationFields, "specialization")
+            data["additionalAbilities"] = getJSONMulti("additionalAbilities", additionalFields, "additional")
+            data["merits"] = getJSONMulti("merits", meritsFields, "merit")
+            data["willpower"] = getJSONSingle("willpower");
+            data["limitBreak"] = getJSONSingle("limitBreak");
+            data["essence"] = getJSONEssence("essence");
+            data["limitTrigger"] = getJSONMulti("limitTrigger", limitTrigggerFields, "limitTrigger")
+            data["weapons"] = getJSONMulti("weapons", weaponsFields, "weapon");
+            data["armors"] = getJSONMulti("armors", armorsFields, "armor");
+            data["health"]["healthPoints"] = getJSONMulti("health", healthFields, "health");
+
+            data["health"]["incapacitated"] = getHealthIncapacitated();
+
+            data["intimacies"] = getJSONMulti("intimacies", intimaciesFields, "intimacy")
+            data["charms"] = getJSONMulti("charms", charmsFields, "charm")
+            data["inventory"] = getJSONMulti("inventory", inventoryFields, "inventory")
+
+            data["notes"] = document.getElementById("notes").value;
+            data["more"]["lore"] = document.getElementById("loreBackground").value;
+            data["tracker"] = getJSONMulti("tracker", trackerFields, "track")
+
+            var t1 = performance.now();
+
+            console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.")
+
+            return data;
+      }
+
+
+
+      //getCharacterDataJSON()
+
+
+      // fetch character data and load it
+
+
+      var splitresult = location.href.split("/sheet")[0].split("character/");
+
+
+      var isRefreshing = false;
+
+      function afterRefresh(dataJSON) {
+            fillCharacter(dataJSON)
+
+            isRefreshing = false;
+
+            document.getElementById("save-button").disabled = true;
+
+            updateWeaponsDisplay();
+
+            // at the end cuz it can explode if no weapons and shitzel
+            calculateStats();
+            updateExperience();
+            fixToolTips();
+      }
+
+      function fixToolTips() {
+            $(function () {
+                  $('[data-toggle="tooltip"]').tooltip()
+            })
+      }
+
+      function createControls()
+      {
+            fillCharacterTypesCombo();
+      }
+
+      function fillCharacterTypesCombo()
+      {
+            casteCombo = document.getElementById("casteCombo");
+
+            casteCombo.innerHTML = "";
+
+            characterTypes.forEach(type => {
+
+                  var opt = document.createElement('option');
+
+                  opt.appendChild(document.createTextNode(type["label"]));
+
+                  opt.value = type["name"]
+
+                  casteCombo.appendChild(opt);
+            });
+
+            casteCombo.selectedIndex = 0;
+      }
+
+      function updateSupernals()
+      {
+            supernalCombo = document.getElementById("supernalCombo");
+            casteCombo = document.getElementById("casteCombo");
+
+            supernalCombo.innerHTML = "<option value=\"none\">None</option>"
+
+            characterTypesFiltered = characterTypes.filter(function (item) {
+                  if(item["name"] == casteCombo.value)
+                  {
+                        return item;
+                  }
+            });
+
+            if(characterTypesFiltered == null || characterTypesFiltered.length == 0)
+            {
+                  return;
+            }
+
+            characterType = characterTypesFiltered[0];
+
+            if( !("supernals" in characterType))
+            {
+                  return;
+            }
+
+            characterType["supernals"].forEach(supernal => {
+                  var opt = document.createElement('option');
+
+                  opt.appendChild(document.createTextNode(supernal["label"]));
+
+                  opt.value = supernal["name"]
+
+                  supernalCombo.appendChild(opt);
+            });
+
+      }
+
+      function refresh() {
+
+            isRefreshing = true;
+
+            createControls();
+
+            sendHttpGetRequest("/api/character/" + splitresult[splitresult.length - 1], function (data) {
+
+                  dataJSON = JSON.parse(data);
+
+
+                  dataJSON["data"] = JSON.parse(dataJSON["data"])
+
+                  afterRefresh(dataJSON);
+
+            });
+
+            getUserInfos(result => {
+                  document.querySelector('[name="owner"]').value = result.name
+            });
+
+      }
+
+
+      refresh();
+
+      function saveCharacter() {
+            datatosend = getCharacterDataJSON()
+
+            sendHttpPostRequest("/api/character/" + splitresult[splitresult.length - 1] + "/update", JSON.stringify(datatosend), function (data) {
+
+                  refresh();
+                  refreshmenu();
+            });
+      }
+
+
+      function setControlStates() {
+            if (!isRefreshing) {
+                  document.getElementById("save-button").disabled = false;
+            }
+      }
+
+
+      function deleteRow(elementId, containerId, prepend) {
+            var element = document.getElementById(elementId)
+
+            if (element == null) {
+                  return;
+            }
+
+            element.parentNode.removeChild(element);
+      }
+
+      var charmTemplate = `
+<div class="form-row mt-3 border p-2 shadow" id="charm__ID__">
+      <div class="col-12">
+            <div class="row">
+                  <div class="col-md-6">
+                        <div class="row">
+                              <div class=" col-md-12">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" name="charm__ID__-name" onchange="setControlStates()">
+                              </div>
+                        </div>
+                        <div class="row mt-1">
+                              <div class=" col-md-6">
+                                    <div class="row">
+                                          <div class="col-12">
+                                                <label>Ability Tree</label>
+                                                <input type="text" class="form-control" name="charm__ID__-tree" onchange="setControlStates()">
+                                          </div>
+                                    </div>
+                                    <div class="row">
+                                          <div class="col-12">
+                                                <label>Essence</label>
+                                                <input type="text" class="form-control" name="charm__ID__-essence" onchange="setControlStates()" >
+                                          </div>
+                                    </div>
+                                    <div class="row">
+                                          <div class="col-12">
+                                                <label>Ability</label>
+                                                <input type="text" class="form-control" name="charm__ID__-ability" onchange="setControlStates()" >
+                                          </div>
+                                    </div>
+                                    <div class="row">
+                                          <div class="col-12">
+                                                <label>Cost</label>
+                                                <input type="text" class="form-control" name="charm__ID__-cost" onchange="setControlStates()" >
+                                          </div>
+                                    </div>
+                              </div>
+                              <div class=" col-md-6">
+                                    <div class="row">
+                                          <div class="col-12">
+                                                <label>Book</label>
+                                                <input type="text" class="form-control" name="charm__ID__-book" onchange="setControlStates()">
+                                          </div> 
+                                    </div>
+                                    <div class="row">
+                                          <div class="col-12">
+                                                <label>Page #</label>
+                                                <input type="text" class="form-control" name="charm__ID__-page" onchange="setControlStates()" >
+                                          </div> 
+                                    </div>
+                                    <div class="row">
+                                          <div class="col-12">
+                                                <label>Type</label>
+                                                <input type="text" class="form-control" name="charm__ID__-type" onchange="setControlStates()" >
+                                          </div> 
+                                    </div>
+                                    <div class="row">
+                                          <div class="col-12">
+                                                <label>Duration</label>
+                                                <input type="text" class="form-control" name="charm__ID__-duration" onchange="setControlStates()" >
+                                          </div> 
+                                    </div>
+                              </div>
+                        </div>
+                        <div class="row">
+                              <div class=" col-12">
+                                    <label>Keywords</label>
+                                    <input type="text" class="form-control" name="charm__ID__-keywords" onchange="setControlStates()" >
+                              </div>
+                        </div>
+                        <div class="row">
+                              <div class=" col-12">
+                                    <label>Requires</label>
+                                    <input type="text" class="form-control" name="charm__ID__-requirements" onchange="setControlStates()" >
+                              </div>
+                        </div>
+
+                  </div>
+                  <div class="col-md-6">
+                        <div class="row">
+                              <div class="col-12">
+                                    <label>Description</label>
+                                    <textarea class="form-control" name="charm__ID__-description" rows="16" onchange="setControlStates()"></textarea>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+            <div class="row">                  
+                  <div class="col-md-12">
+                        <hr>
+                        <button type="button" class="btn btn-primary " onclick="deleteRow('charm__ID__'); setControlStates();"><i class="fas fa-trash-alt"></i></button>
+                  </div>
+            </div>
+      </div>
+</div>
+      `;
+
+      var intimacyTemplate = `
+<div class="form-row" id="intimacy__ID__">
+      <div class=" col-md-8">
+            <label>Name</label>
+            <input type="text" class="form-control" name="intimacy__ID__-name" onchange="setControlStates()">
+      </div>
+      <div class=" col-md-3">
+            <label>Intensity</label>
+            <input type="text" class="form-control" name="intimacy__ID__-intensity" onchange="setControlStates()">
+      </div>
+      <div class="col-md-1 align-self-end">
+            <button type="button" class="btn btn-primary float-right" onclick="deleteRow('intimacy__ID__'); setControlStates();"><i class="fas fa-trash-alt"></i></button>
+      </div>
+</div>
+      `;
+
+      function addRow(template, containerId, prepend, beginning) {
+            var containerjquery = $("#" + containerId);
+            // var container = document.getElementById(containerId);
+
+
+
+            id = uniqueID();
+
+            var htmltoadd = template.split("__ID__").join(id)
+
+            if (beginning == true) {
+                  containerjquery.prepend(htmltoadd);
+                  return;
+            }
+
+            containerjquery.append(htmltoadd);
+
+      }
+
+      // TODO ask for ini
+      function calculateStats() {
+
+            initiativeElem = document.getElementById("initiative");
+
+            initiative = parseInt(initiativeElem.value);
+
+            if (isNaN(initiative)) {
+                  initiative = 0;
+            }
+
+
+            globalBonusDiceElem = document.getElementById("globalDiceBonus");
+
+            diceBonus = parseInt(globalBonusDiceElem.value);
+
+            if (isNaN(diceBonus)) {
+                  diceBonus = 0;
+            }
+
+            globalDebuffElem = document.getElementById("globalDicePenalty");
+
+            globalDebuff = parseInt(globalDebuffElem.value);
+
+            if (isNaN(globalDebuff)) {
+                  globalDebuff = 0
+            }
+
+            healthDebuff = getCharacterHealthDiceDebuff(charactar);
+
+            if (isNaN(healthDebuff)) {
+                  incapacitatedLabel = document.getElementById("incapacitatedLabel");
+
+                  incapacitatedLabel.hidden = false;
+
+            }
+            else {
+                  incapacitatedLabel.hidden = true;
+            }
+
+            healthPenaltyElem = document.getElementById("healthPenalty");
+
+
+            healthPenaltyElem.innerHTML = healthDebuff;
+
+            healthDebuff = healthDebuff + globalDebuff; // lazy
+
+            currentWeaponElem = document.getElementById("currentWeapon");
+
+            currentWeapon = charactar["data"]["weapons"].filter(function (elem) { return elem.name == currentWeaponElem.value })[0]
+
+            currentArmorElem = document.getElementById("currentArmor");
+
+            currentArmor = charactar["data"]["armors"].filter(function (elem) { return elem.name == currentArmorElem.value })[0]
+
+
+            if (currentArmor == null) {
+                  currentArmor = { "name": "", "soak": 0, "hardness": 0, "mobilityPenalty": 0, "tags": "" }
+            }
+
+
+            if (currentWeapon == null) {
+                  currentWeapon = { "name": "", "combatAbility": "melee", "withering": "strength", "accuracy": 4, "damage": 7, "defense": 0, "overwhelming": 1, "tags": "bashing, brawl, grappling, natural", "dicePool": 0 }
+            }
+
+            currentRangeDivElem = document.getElementById("currentRangeDiv");
+            if (currentWeapon["combatAbility"] == "archery" || currentWeapon["combatAbility"] == "thrown") {
+                  currentRangeDivElem = document.getElementById("currentRangeDiv");
+                  currentRangeDivElem.hidden = false;
+            }
+            else {
+                  currentRangeDivElem.hidden = true;
+            }
+
+
+            // if ranged weapon accuracy is different
+            accuracy = currentWeapon["accuracy"]
+
+
+            if (!currentRangeDivElem.hidden) {
+
+                  currentRangeElem = document.getElementById("currentRange");
+
+                  var tt = rangePenalties["penalties"][currentRangeElem.value]
+
+                  if (currentWeapon["artifact"]) {
+                        tt = tt["artifact"];
+                  }
+                  else {
+                        tt = tt["mortal"]
+                  }
+
+
+                  accuracy = tt[currentWeapon["combatAbility"]]
+
+            }
+
+            accuracy = accuracy;
+
+            // TODO save current weapon and all the settings on this page
+
+            // JOIN BATTLE ============
+
+            joinBattleElement = document.getElementById("joinBattle")
+
+            joinBattle = charactar["data"]["attributes"]["wits"] + getAttribute(charactar, "awareness").value;
+
+            joinBattle = joinBattle - healthDebuff + diceBonus;
+
+            joinBattleElement.innerHTML = ensureZero(joinBattle) + " + 3 successes"
+
+            // =======================
+
+
+            // RESOLVE ============
+            resolveElement = document.getElementById("resolve");
+            resolveElementCheck = document.getElementById("resolveSpeciality");
+
+            resolve = charactar["data"]["attributes"]["wits"] + getAttribute(charactar, "integrity").value;
+
+            if (resolveElementCheck.checked) {
+                  resolve = resolve + 1;
+            }
+
+            resolve = Math.ceil(resolve / 2);
+
+            resolve = resolve - healthDebuff + diceBonus;
+
+            resolveElement.innerHTML = ensureZero(resolve);
+            // =============================
+
+
+            // GUILE ===================
+            guileElement = document.getElementById("guile");
+            guileElementCheck = document.getElementById("guileSpeciality");
+
+            guile = charactar["data"]["attributes"]["manipulation"] + getAttribute(charactar, "socialize").value;
+
+            if (guileElementCheck.checked) {
+                  guile = guile + 1;
+            }
+
+            guile = Math.ceil(guile / 2)
+
+            guile = guile - healthDebuff + diceBonus;
+
+            guileElement.innerHTML = ensureZero(guile);
+            // =============
+
+
+            // WITHERING ATTACK ROLL ===============
+            witheringAttackRollSpecialityElem = document.getElementById("witheringAttackRollSpeciality")
+
+            witheringAttackRollElem = document.getElementById("witheringAttackRoll");
+
+
+            dexterity = charactar["data"]["attributes"]["dexterity"];
+
+            witheringAttackRoll = dexterity + getAttribute(charactar, currentWeapon["combatAbility"]).value + accuracy;
+
+            if (witheringAttackRollSpecialityElem.checked) {
+                  witheringAttackRoll = witheringAttackRoll + 1;
+            }
+
+            witheringAttackRoll = witheringAttackRoll - healthDebuff + diceBonus
+
+            witheringAttackRollElem.innerHTML = ensureZero(witheringAttackRoll);
+
+            //======================================
+
+
+            // WITHERING DAMAGE ROLL =======
+
+            witheringDamageRollElem = document.getElementById("witheringDamageRoll");
+
+            witheringDamageRoll = currentWeapon["damage"];
+
+            if (currentWeapon["withering"] == 4 || currentWeapon["withering"] == "4") {
+                  witheringDamageRoll = witheringDamageRoll + 4;
+            }
+            else {
+                  witheringDamageRoll = witheringDamageRoll + charactar["data"]["attributes"]["strength"];
+            }
+
+            witheringDamageRoll = witheringDamageRoll - healthDebuff + diceBonus
+
+            // TODO make something interactive that ask the user for the remaining infos
+            witheringDamageRollElem.innerHTML = ensureZero(witheringDamageRoll) + "+  threshold successes (successes on the withering attack roll - enemy’s Defence) - Enemy Soak"
+
+            // NATURAL SOAK =============================
+
+            naturalSoakElem = document.getElementById("naturalSoakCalc");
+
+            if(charactar["data"]["caste"] == "mortal")
+            {
+                  naturalSoak = 0;
+            }
+            else
+            {       
+                  naturalSoak = charactar["data"]["attributes"]["stamina"];
+            }
+
+            naturalSoak = naturalSoak - healthDebuff + diceBonus;
+
+            naturalSoakElem.innerHTML = ensureZero(naturalSoak);
+
+
+            // SOAK ===========================
+
+            soakElem = document.getElementById("soakCalc");
+
+            soak = charactar["data"]["attributes"]["stamina"] + currentArmor["soak"];
+
+            soak = soak + diceBonus;
+
+            soakElem.innerHTML = ensureZero(soak) + " + charms, defends against Withering attacks"
+
+
+
+            // ===============================
+
+
+
+            // DECISIVE ATTACK ROLL=========
+            decisiveAttackRollSpecialityElem = document.getElementById("decisiveAttackRollSpeciality")
+            decisiveAttackRollElem = document.getElementById("decisiveAttackRoll");
+
+            decisiveAttackRoll = charactar["data"]["attributes"]["dexterity"] + getAttribute(charactar, currentWeapon["combatAbility"]).value
+
+            if (decisiveAttackRollSpecialityElem.checked) {
+                  decisiveAttackRoll = decisiveAttackRoll + 1;
+            }
+
+            decisiveAttackRoll = decisiveAttackRoll - healthDebuff + diceBonus;
+
+            decisiveAttackRollElem.innerHTML = ensureZero(decisiveAttackRoll);
+
+            // ===============================
+
+
+            // DECISIVE DAMAGE ROLL ==============
+            decisiveDamageRollElem = document.getElementById("iniCalc");
+
+
+            decisiveDamageRollElem.innerHTML = ensureZero(initiative);
+
+
+            // ========================
+
+
+            // HARDNESS ======================
+
+            hardnessElem = document.getElementById("hardnessCalc");
+
+            hardness = currentArmor["hardness"];
+            // TODO - SHOULD WE DEBUFF WITH HEALTH
+
+            hardnessElem.innerHTML = "Best hardness value from Charm or Armor (" + ensureZero(hardness) + "), if higher than a Decisive attack dice pool, the attack fails."
+
+            // ===============================
+
+
+
+            // PARRY ====================
+
+            parryElem = document.getElementById("parryCalc");
+
+            parry = Math.ceil((charactar["data"]["attributes"]["dexterity"] + getAttribute(charactar, currentWeapon["combatAbility"]).value) / 2) + currentWeapon["defense"]
+
+            parry = parry - healthDebuff + diceBonus;
+
+            parryElem.innerHTML = ensureZero(parry);
+
+            // =========================
+
+
+            // EVASION ==================
+
+            evasionElem = document.getElementById("evasionCalc");
+
+            evasion = Math.ceil((charactar["data"]["attributes"]["dexterity"] + getAttribute(charactar, "dodge").value) / 2) - currentArmor["mobilityPenalty"]
+
+            evasion = evasion - healthDebuff + diceBonus
+
+            evasionElem.innerHTML = ensureZero(evasion);
+
+            // =========================
+
+
+            // DEFENSE ================
+
+            defenseElem = document.getElementById("defenseCalc");
+
+            defense = 0;
+
+            if (evasion >= parry) {
+                  defense = evasion;
+            }
+            else {
+                  defense = parry;
+            }
+
+            defenseElem.innerHTML = ensureZero(defense)
+
+            //==========================
+
+
+            //RUSH ===============
+            rushElem = document.getElementById("rushCalc");
+
+            rush = charactar["data"]["attributes"]["dexterity"] + getAttribute(charactar, "athletics").value - currentArmor["mobilityPenalty"]
+
+            rush = rush - healthDebuff + diceBonus;
+
+            rushElem.innerHTML = ensureZero(rush);
+
+            // ===================
+
+            // WITHDRAW ==============
+
+            withdrawElem = document.getElementById("withdrawCalc");
+
+            withdraw = charactar["data"]["attributes"]["dexterity"] + getAttribute(charactar, "athletics").value - currentArmor["mobilityPenalty"]
+
+            withdraw = withdraw - healthDebuff + diceBonus;
+
+            withdrawElem.innerHTML = ensureZero(withdraw);
+
+            //========================
+
+            // DISENGAGE ===============
+
+            disengageElem = document.getElementById("disengageCalc");
+
+            disengage = charactar["data"]["attributes"]["dexterity"] + getAttribute(charactar, "dodge").value - currentArmor["mobilityPenalty"]
+
+            disengage = disengage - healthDebuff + diceBonus;
+
+            disengageElem.innerHTML = ensureZero(disengage)
+            //==========================
+
+      }
+
+      function getAttribute(character, attributeName) {
+            return character["data"]["abilities"].filter(function (i) { if (i.name == attributeName) { return i } })[0]
+      }
+
+      function uniqueID() {
+
+            return Math.random().toString(36).substr(2, 9);
+      };
+
+      function updateWeaponsDisplay() {
+            form = document.getElementById("weapons")
+
+            var data = new FormData(form);
+
+            var jsonArray = [];
+
+            var weapons = [];
+
+            data.forEach(function (value, key) {
+
+                  isolatedKey = key.split("-")[0];
+
+                  if (weapons.indexOf(isolatedKey) == -1 && isolatedKey.indexOf("weapon") != -1) {
+                        weapons.push(isolatedKey);
+                  }
+            });
+
+
+            weapons.forEach(function (weaponId, i) {
+
+                  combatAbilityElem = document.querySelector('[name="' + weaponId + "-combatAbility" + '"]');
+                  hideAccuracyElem = document.getElementById(weaponId + "-hideAccuracy");
+                  hideArtifactElem = document.getElementById(weaponId + "-hideArtifact");
+
+                  if (combatAbilityElem.value == "archery" || combatAbilityElem.value == "thrown") // ranged weapons don't have accuracy its based on range
+                  {
+                        hideAccuracyElem.hidden = true;
+                        hideArtifactElem.hidden = false;
+                  }
+                  else {
+                        hideAccuracyElem.hidden = false;
+                        hideArtifactElem.hidden = true;
+                  }
+            });
+      }
+
+
+      // Returns the amount of dice to substract
+      function getCharacterHealthDiceDebuff(character) {
+            healthPoints = character["data"]["health"]["healthPoints"];
+            incapacitated = character["data"]["health"]["incapacitated"];
+
+            if (incapacitated) {
+                  return NaN;
+            }
+
+            lastDamagedHealthtPoint = null;
+
+            healthPoints.forEach(healthPoint => {
+
+                  if (healthPoint["type"] != "none") {
+                        lastDamagedHealthtPoint = healthPoint;
+                  }
+            });
+
+            if (lastDamagedHealthtPoint == null) {
+                  return 0;
+            }
+
+            value = parseInt(lastDamagedHealthtPoint["name"])
+
+            if (isNaN(value)) {
+                  return 0;
+            }
+
+            return Math.abs(value) // should change the name to a more significant one but too lazy
+
+      }
+
+      // Make sure the value is 0 if lower than 0
+      function ensureZero(value) {
+
+            if (value < 0) {
+                  return 0;
+            }
+
+            return value;
+      }
+
+      function exportCharacter() {
+            download("character.txt", JSON.stringify(charactar["data"]));
+      }
+
+      function importCharacter() {
+            var input = document.createElement('input');
+            input.type = 'file';
+
+            input.onchange = e => {
+
+                  // getting a hold of the file reference
+                  var file = e.target.files[0];
+
+                  // setting up the reader
+                  var reader = new FileReader();
+                  reader.readAsText(file, 'UTF-8');
+
+                  // here we tell the reader what to do when it's done reading...
+                  reader.onload = readerEvent => {
+                        var content = readerEvent.target.result; // this is the content!
+                        //console.log( content );
+                        try {
+                              charactar["data"] = JSON.parse(content)
+
+                              afterRefresh(charactar);
+
+                              setControlStates();
+
+                        }
+                        catch (e) {
+                              alert(e); // error in the above string (in this case, yes)!
+                        }
+                  }
+
+            }
+
+            input.click();
+
+      }
+
+      function download(filename, text) {
+            var pom = document.createElement('a');
+            pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            pom.setAttribute('download', filename);
+
+            if (document.createEvent) {
+                  var event = document.createEvent('MouseEvents');
+                  event.initEvent('click', true, true);
+                  pom.dispatchEvent(event);
+            }
+            else {
+                  pom.click();
+            }
+      }
+
+      function updateExperience() {
+            char = getCharacterDataJSON();
+
+            totalExperience = 0;
+            currentExperience = 0;
+
+            totalSpecialExperience = 0;
+            currentSpecialExperience = 0;
+
+            if (char["tracker"] == null || char["tracker"].length == 0) {
+                  return;
+            }
+
+
+            totalSpentExperience = 0;
+            totalSpentSpecialExperience = 0;
+
+            char["tracker"].forEach(track => {
+                  experience = track["experience"];
+
+                  // spent xp
+                  if (experience < 0) {
+                        totalSpentExperience = totalSpentExperience + Math.abs(experience);
+                        return;
+                  }
+
+                  totalExperience = totalExperience + experience;
+
+                  specialExperience = track["specialExperience"];
+
+                  // spent special
+                  if (specialExperience < 0) {
+                        totalSpentSpecialExperience = totalSpentSpecialExperience + Math.abs(specialExperience);
+                        return;
+                  }
+
+                  totalSpecialExperience = totalSpecialExperience + specialExperience;
+
+            });
+
+            currentExperience = totalExperience - totalSpentExperience;
+            currentSpecialExperience = totalSpecialExperience - totalSpentSpecialExperience;
+
+            document.getElementById("currentExperience").value = currentExperience;
+            document.getElementById("totalExperience").value = totalExperience;
+
+            document.getElementById("currentSpecial").value = currentSpecialExperience;
+            document.getElementById("totalSpecial").value = totalSpecialExperience;
+      }
+
+</script>
